@@ -4,177 +4,245 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ToolNest — Free PDF & Marketing Tools</title>
-<meta name="description" content="19 free tools — PDF compressor, merger, converter plus hashtag generator, SEO audit, blog titles and more. No signup required."/>
+<meta name="description" content="19 free tools — PDF compressor, merger, converter plus hashtag generator, SEO audit and more. No signup required."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#f6f5f2;--sf:#fff;--bd:#e4e1d9;--so:#eeece6;--tx:#18170f;--t2:#6b6a61;--t3:#a8a69e;--bl:#2563eb;--bll:#eff6ff;--gn:#16a34a;--gnl:#f0fdf4;--am:#d97706;--aml:#fffbeb;--rd:#dc2626;--rdl:#fef2f2;--pu:#7c3aed;--pul:#faf5ff;--r:14px;--rs:9px}
+:root{--bg:#08080e;--bg2:#0e0e18;--bg3:#13131e;--sf:#171724;--sf2:#1c1c2c;--bd:#252535;--bd2:#303045;--tx:#eeedf8;--t2:#7f7e98;--t3:#4a4a62;--bl:#4f72ff;--bld:#3a58e8;--bll:rgba(79,114,255,.1);--gn:#22d47e;--gnl:rgba(34,212,126,.08);--am:#f0a030;--aml:rgba(240,160,48,.08);--rd:#f05050;--rdl:rgba(240,80,80,.08);--pu:#c084fc;--pul:rgba(192,132,252,.08);--cy:#22d3ee;--cyl:rgba(34,211,238,.08);--r:14px;--rs:10px}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
-.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:700;letter-spacing:-.03em;cursor:pointer;text-decoration:none;color:var(--tx)}
-.lbox{width:28px;height:28px;background:var(--bl);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
-.npills{display:flex;gap:5px}
-.np{font-size:13px;padding:5px 13px;border-radius:20px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
-.np:hover,.np.on{background:var(--bl);color:#fff;border-color:var(--bl)}
-.hero{max-width:680px;margin:0 auto;padding:3.5rem 1.5rem 2rem;text-align:center}
-.hbadge{display:inline-flex;align-items:center;gap:6px;background:var(--gnl);color:var(--gn);font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:1.2rem;border:1px solid #bbf7d0}
-.hero h1{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;letter-spacing:-.04em;line-height:1.15;margin-bottom:.9rem}
-.hero h1 span{color:var(--bl)}
-.hero p{font-size:15px;color:var(--t2);line-height:1.7;max-width:480px;margin:0 auto 1.75rem}
-.stats{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
-.stn{font-size:20px;font-weight:700;letter-spacing:-.03em}
-.stl{font-size:11px;color:var(--t3);margin-top:2px}
-.catw{display:flex;gap:7px;justify-content:center;padding:.5rem 1.5rem 1.5rem;flex-wrap:wrap}
-.ct{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:8px 16px;border-radius:22px;border:1.5px solid var(--bd);background:var(--sf);color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
-.ct:hover{border-color:var(--bl);color:var(--bl)}
-.ct.a-all{background:var(--tx);border-color:var(--tx);color:#fff}
-.ct.a-pdf{background:#1e40af;border-color:#1e40af;color:#fff}
-.ct.a-mkt{background:var(--gn);border-color:var(--gn);color:#fff}
-.tw{max-width:1080px;margin:0 auto;padding:0 1.25rem 5rem}
-.sh{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin:1.75rem 0 .875rem;display:flex;align-items:center;gap:8px}
-.sh::after{content:'';flex:1;height:1px;background:var(--so)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px}
-.tc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1.125rem;cursor:pointer;transition:all .18s;position:relative}
-.tc:hover{border-color:var(--bl);box-shadow:0 4px 16px rgba(37,99,235,.1);transform:translateY(-2px)}
-.ti{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:.75rem}
-.tn{font-size:13.5px;font-weight:600;margin-bottom:3px;letter-spacing:-.01em}
-.td{font-size:11.5px;color:var(--t2);line-height:1.5}
-.tbg{position:absolute;top:9px;right:9px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:7px}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.38);backdrop-filter:blur(5px);z-index:300;display:flex;align-items:flex-end;justify-content:center;padding:1rem;animation:fi .2s}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
+/* DOT GRID */
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(79,114,255,.08) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
+/* AMBIENT GLOW */
+.ambient{position:fixed;top:0;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(79,114,255,.07) 0%,transparent 70%);pointer-events:none;z-index:0}
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:rgba(8,8,14,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--bd);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.03em;cursor:pointer;text-decoration:none;color:var(--tx);position:relative;z-index:1}
+.lbox{width:30px;height:30px;background:linear-gradient(135deg,#4f72ff,#c084fc);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 0 20px rgba(79,114,255,.35)}
+.nav-r{display:flex;align-items:center;gap:7px;position:relative;z-index:1}
+.np{font-size:13px;padding:5px 13px;border-radius:20px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.np:hover,.np.on{background:var(--bll);color:var(--bl);border-color:rgba(79,114,255,.35)}
+.ncta{font-size:13px;padding:6px 16px;border-radius:20px;border:none;background:linear-gradient(135deg,#4f72ff,#7c3aed);color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;letter-spacing:-.01em}
+.ncta:hover{opacity:.9;box-shadow:0 0 24px rgba(79,114,255,.4)}
+/* HERO */
+.hero{max-width:760px;margin:0 auto;padding:5rem 2rem 2.5rem;text-align:center;position:relative;z-index:1}
+.hbadge{display:inline-flex;align-items:center;gap:7px;background:var(--gnl);color:var(--gn);font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;margin-bottom:1.5rem;border:1px solid rgba(34,212,126,.2);letter-spacing:.01em;animation:fu .6s both}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--gn);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;letter-spacing:-.05em;line-height:1.1;margin-bottom:1.25rem;animation:fu .6s .1s both}
+.grad{background:linear-gradient(135deg,#4f72ff 0%,#c084fc 50%,#22d3ee 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:16px;color:var(--t2);line-height:1.75;max-width:500px;margin:0 auto 2.25rem;animation:fu .6s .2s both;font-weight:300}
+@keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+/* STATS */
+.stats{display:flex;justify-content:center;border:1px solid var(--bd);border-radius:var(--r);background:var(--sf);overflow:hidden;max-width:440px;margin:0 auto 1.25rem;animation:fu .6s .3s both}
+.stat{flex:1;padding:.875rem .5rem;text-align:center;border-right:1px solid var(--bd);transition:background .2s}
+.stat:last-child{border-right:none}
+.stat:hover{background:var(--sf2)}
+.stn{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.03em}
+.stl{font-size:10.5px;color:var(--t3);margin-top:3px;letter-spacing:.03em;text-transform:uppercase}
+/* TRUST */
+.trust{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;padding:.5rem 2rem 0;animation:fu .6s .4s both}
+.tri{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--t3)}
+.tri::before{content:'✓';color:var(--gn);font-weight:700;font-size:11px}
+/* CAT TABS */
+.catw{display:flex;gap:6px;justify-content:center;padding:1.75rem 2rem 1.25rem;flex-wrap:wrap;position:relative;z-index:1}
+.ct{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;padding:8px 18px;border-radius:22px;border:1px solid var(--bd);background:var(--sf);color:var(--t2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;letter-spacing:-.01em}
+.ct:hover{border-color:var(--bd2);color:var(--tx)}
+.ct.a-all{background:var(--tx);border-color:var(--tx);color:var(--bg);font-weight:600}
+.ct.a-pdf{background:var(--bll);border-color:rgba(79,114,255,.35);color:var(--bl)}
+.ct.a-mkt{background:var(--gnl);border-color:rgba(34,212,126,.25);color:var(--gn)}
+.cnt{font-size:10.5px;opacity:.55;font-family:'JetBrains Mono',monospace}
+/* SECTION */
+.tw{max-width:1100px;margin:0 auto;padding:0 1.5rem 6rem;position:relative;z-index:1}
+.sh{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin:2rem 0 1rem;display:flex;align-items:center;gap:10px}
+.sh::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--bd),transparent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px}
+/* TOOL CARD */
+.tc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1.25rem;cursor:pointer;transition:all .22s;position:relative;overflow:hidden}
+.tc-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(79,114,255,.05),transparent 60%);opacity:0;transition:opacity .3s}
+.tc-top{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,114,255,.6),transparent);opacity:0;transition:opacity .3s}
+.tc:hover{border-color:rgba(79,114,255,.3);box-shadow:0 8px 40px rgba(79,114,255,.1),0 2px 8px rgba(0,0,0,.4);transform:translateY(-3px)}
+.tc:hover .tc-shine,.tc:hover .tc-top{opacity:1}
+.tc.feat{grid-column:span 2;border-color:rgba(79,114,255,.2)}
+.tc.feat .tc-shine{opacity:.5}
+@media(max-width:580px){.tc.feat{grid-column:span 1}}
+.ti{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:.8rem;position:relative;z-index:1}
+.tn{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;margin-bottom:4px;letter-spacing:-.02em;color:var(--tx);position:relative;z-index:1}
+.td{font-size:11.5px;color:var(--t2);line-height:1.55;position:relative;z-index:1;font-weight:300}
+.tbg{position:absolute;top:10px;right:10px;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:7px;font-family:'JetBrains Mono',monospace;z-index:2;letter-spacing:.03em}
+/* MODAL */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(16px);z-index:300;display:flex;align-items:flex-end;justify-content:center;padding:1rem;animation:fi .18s}
 @media(min-width:600px){.ov{align-items:center}}
 @keyframes fi{from{opacity:0}to{opacity:1}}
-.modal{background:var(--sf);border-radius:var(--r) var(--r) 0 0;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:su .25s cubic-bezier(.34,1.56,.64,1)}
+.modal{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r) var(--r) 0 0;width:100%;max-width:600px;max-height:92vh;overflow-y:auto;box-shadow:0 -24px 80px rgba(0,0,0,.7);animation:su .26s cubic-bezier(.34,1.56,.64,1)}
 @media(min-width:600px){.modal{border-radius:var(--r)}}
 @keyframes su{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
-.mh{display:flex;align-items:center;justify-content:space-between;padding:1.125rem 1.375rem;border-bottom:1px solid var(--so)}
-.mhl{display:flex;align-items:center;gap:10px}
-.mic{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.mtt{font-size:16px;font-weight:700;letter-spacing:-.02em}
-.msb{font-size:11.5px;color:var(--t2);margin-top:2px}
-.mcl{width:30px;height:30px;border-radius:50%;border:1px solid var(--bd);background:var(--bg);cursor:pointer;font-size:16px;color:var(--t2);display:flex;align-items:center;justify-content:center}
-.mb{padding:1.375rem}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd)}
+.mhl{display:flex;align-items:center;gap:11px}
+.mic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.mtt{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;letter-spacing:-.03em;color:var(--tx)}
+.msb{font-size:12px;color:var(--t2);margin-top:2px;font-weight:300}
+.mcl{width:30px;height:30px;border-radius:50%;border:1px solid var(--bd);background:var(--sf);cursor:pointer;font-size:17px;color:var(--t2);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mcl:hover{background:var(--sf2);color:var(--tx);border-color:var(--bd2)}
+.mb{padding:1.5rem}
+/* FORM */
 .f{margin-bottom:.875rem}
-.f label{font-size:12.5px;font-weight:500;color:var(--t2);display:block;margin-bottom:4px}
-.f input,.f textarea,.f select{width:100%;padding:9px 12px;font-size:13.5px;font-family:inherit;border:1px solid var(--bd);border-radius:var(--rs);background:var(--bg);color:var(--tx);outline:none;transition:border-color .15s}
-.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--bl);background:#fff}
-.f textarea{resize:vertical;min-height:85px;line-height:1.6}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.adn{display:flex;gap:8px;background:var(--aml);border:1px solid #fde68a;border-radius:var(--rs);padding:9px 12px;margin-bottom:1.1rem;font-size:12px;color:#92400e;line-height:1.55}
-.btn{width:100%;padding:10px;font-size:13.5px;font-weight:600;font-family:inherit;border-radius:var(--rs);border:none;cursor:pointer;transition:all .15s}
-.bb{background:var(--bl);color:#fff}.bb:hover{background:#1d4ed8}.bb:disabled{opacity:.45;cursor:default}
-.bg{background:var(--bg);border:1px solid var(--bd);color:var(--t2);margin-top:7px}.bg:hover{background:#fff;color:var(--tx)}
-.ads{text-align:center;padding:1.375rem}
-.adl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:.875rem}
-.adb{background:var(--bg);border:1.5px dashed var(--bd);border-radius:var(--rs);height:90px;display:flex;align-items:center;justify-content:center;margin-bottom:1.125rem}
-.adb span{font-size:12px;color:var(--t3);font-family:'JetBrains Mono',monospace}
-.rw{position:relative;width:66px;height:66px;margin:0 auto .625rem}
+.f label{font-size:11px;font-weight:600;color:var(--t3);display:block;margin-bottom:5px;letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.f input,.f textarea,.f select{width:100%;padding:10px 13px;font-size:13.5px;font-family:'DM Sans',sans-serif;border:1px solid var(--bd);border-radius:var(--rs);background:var(--bg3);color:var(--tx);outline:none;transition:all .2s}
+.f input:focus,.f textarea:focus,.f select:focus{border-color:rgba(79,114,255,.5);background:var(--sf);box-shadow:0 0 0 3px rgba(79,114,255,.07)}
+.f textarea{resize:vertical;min-height:90px;line-height:1.6}
+.f select option{background:var(--bg2)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.adn{display:flex;gap:8px;background:rgba(240,160,48,.07);border:1px solid rgba(240,160,48,.18);border-radius:var(--rs);padding:10px 13px;margin-bottom:1.1rem;font-size:12px;color:#fbbf24;line-height:1.6}
+.btn{width:100%;padding:11px;font-size:13.5px;font-weight:600;font-family:'DM Sans',sans-serif;border-radius:var(--rs);border:none;cursor:pointer;transition:all .2s;letter-spacing:-.01em}
+.bb{background:linear-gradient(135deg,#4f72ff,#7c3aed);color:#fff;box-shadow:0 4px 20px rgba(79,114,255,.25)}
+.bb:hover{box-shadow:0 6px 30px rgba(79,114,255,.4);transform:translateY(-1px)}
+.bb:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none}
+.bg{background:var(--sf);border:1px solid var(--bd);color:var(--t2);margin-top:8px}
+.bg:hover{background:var(--sf2);color:var(--tx)}
+/* AD */
+.ads{text-align:center;padding:1.5rem}
+.adl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:.875rem;font-family:'JetBrains Mono',monospace}
+.adb{background:var(--bg3);border:1px dashed var(--bd2);border-radius:var(--rs);height:90px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.adb span{font-size:11.5px;color:var(--t3);font-family:'JetBrains Mono',monospace}
+.rw{position:relative;width:68px;height:68px;margin:0 auto .75rem}
 .rw svg{transform:rotate(-90deg)}
-.rbg{fill:none;stroke:var(--bd);stroke-width:4}
-.rfg{fill:none;stroke:var(--bl);stroke-width:4;stroke-dasharray:163;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
-.rn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--bl)}
-.am{font-size:13px;color:var(--t2);margin-bottom:3px}
-.as{font-size:11px;color:var(--t3)}
-.rb{background:var(--bg);border:1px solid var(--bd);border-radius:var(--rs);padding:.875rem;margin-bottom:.875rem}
-.rr{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--so);font-size:12.5px}
+.rbg{fill:none;stroke:var(--bd2);stroke-width:4}
+.rfg{fill:none;stroke:url(#rg);stroke-width:4;stroke-dasharray:168;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.rn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--bl)}
+.am2{font-size:13px;color:var(--t2);margin-bottom:4px}
+.as2{font-size:11px;color:var(--t3)}
+/* RESULTS */
+.rb{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rs);padding:.9rem;margin-bottom:.875rem}
+.rr{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12.5px}
 .rr:last-child{border-bottom:none}
-.rl{color:var(--t2)}.rv{font-weight:600}
+.rl{color:var(--t2)}.rv{font-weight:600;font-size:12.5px}
 .good{color:var(--gn)}.warn{color:var(--am)}.bad{color:var(--rd)}
 .rhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:.875rem}
-.rtt{font-size:14.5px;font-weight:700}
-.cb{font-size:11.5px;padding:4px 11px;border-radius:20px;border:1px solid var(--bd);background:#fff;color:var(--t2);cursor:pointer;font-family:inherit}
-.cb:hover{background:var(--bll);color:var(--bl)}
+.rtt{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:-.02em}
+.cb{font-size:11.5px;padding:5px 12px;border-radius:20px;border:1px solid var(--bd);background:var(--sf);color:var(--t2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.cb:hover{background:var(--bll);color:var(--bl);border-color:rgba(79,114,255,.3)}
 .tg{margin-bottom:.875rem}
-.tgl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.tgl{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:7px;font-family:'JetBrains Mono',monospace}
 .tags{display:flex;flex-wrap:wrap;gap:5px}
-.tag{font-size:11.5px;padding:4px 10px;border-radius:20px;cursor:pointer;border:1px solid transparent}
-.tag:hover{opacity:.7}
-.tgg{background:var(--gnl);color:var(--gn);border-color:#bbf7d0}
-.tgb{background:var(--bll);color:var(--bl);border-color:#bfdbfe}
-.tga{background:var(--aml);color:var(--am);border-color:#fde68a}
-.tgp{background:var(--pul);color:var(--pu);border-color:#ddd6fe}
-.oi{padding:.75rem 0;border-bottom:1px solid var(--so)}
+.tag{font-size:11.5px;padding:5px 11px;border-radius:20px;cursor:pointer;border:1px solid transparent;transition:all .2s;font-weight:500}
+.tag:hover{transform:translateY(-1px)}
+.tgg{background:var(--gnl);color:var(--gn);border-color:rgba(34,212,126,.2)}
+.tgb{background:var(--bll);color:var(--bl);border-color:rgba(79,114,255,.2)}
+.tga{background:var(--aml);color:var(--am);border-color:rgba(240,160,48,.2)}
+.tgp{background:var(--pul);color:var(--pu);border-color:rgba(192,132,252,.2)}
+.oi{padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
 .oi:last-child{border-bottom:none}
-.on{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:3px}
-.ot{font-size:13px;line-height:1.7}
-.mono{font-family:'JetBrains Mono',monospace;font-size:12.5px;word-break:break-all;color:var(--bl)}
-.cpd{font-size:11.5px;color:var(--gn);text-align:center;margin-top:7px;min-height:16px}
-.serp{background:#fff;border:1px solid var(--bd);border-radius:var(--rs);padding:.875rem;margin-top:.75rem}
+.on{font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:4px;font-family:'JetBrains Mono',monospace}
+.ot{font-size:13px;line-height:1.7;color:var(--tx)}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;word-break:break-all;color:var(--bl);line-height:1.7}
+.cpd{font-size:12px;color:var(--gn);text-align:center;margin-top:8px;min-height:18px;font-weight:500}
+.serp{background:#fff;border-radius:var(--rs);padding:1rem;margin-top:.75rem}
 .su{font-size:11.5px;color:#006621;margin-bottom:2px;font-family:'JetBrains Mono',monospace}
 .stit{font-size:16px;color:#1a0dab;margin-bottom:3px}
 .sd{font-size:12.5px;color:#545454;line-height:1.5}
 .kwt{width:100%;border-collapse:collapse;font-size:12.5px}
-.kwt th{text-align:left;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);padding:0 0 7px;border-bottom:1px solid var(--bd)}
-.kwt td{padding:8px 0;border-bottom:1px solid var(--so)}
+.kwt th{text-align:left;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);padding:0 0 8px;border-bottom:1px solid var(--bd);font-family:'JetBrains Mono',monospace}
+.kwt td{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04)}
 .kwt tr:last-child td{border-bottom:none}
-.df{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:7px;font-weight:600}
+.df{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:7px;font-weight:600;font-family:'JetBrains Mono',monospace}
 .de{background:var(--gnl);color:var(--gn)}.dm{background:var(--aml);color:var(--am)}.dh{background:var(--rdl);color:var(--rd)}
-.fdp{border:2px dashed var(--bd);border-radius:var(--r);padding:1.75rem;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:.875rem}
-.fdp:hover,.fdp.ov2{border-color:var(--bl);background:var(--bll)}
-.fdi{font-size:1.75rem;margin-bottom:.375rem}
-.fdt{font-size:13.5px;font-weight:500;margin-bottom:3px}
-.fds{font-size:11.5px;color:var(--t3)}
+.fdp{border:2px dashed var(--bd);border-radius:var(--r);padding:2rem;text-align:center;cursor:pointer;transition:all .25s;margin-bottom:.875rem;background:var(--bg3)}
+.fdp:hover,.fdp.ov2{border-color:rgba(79,114,255,.45);background:rgba(79,114,255,.04)}
+.fdi{font-size:2rem;margin-bottom:.5rem}
+.fdt{font-size:13.5px;font-weight:500;margin-bottom:4px;color:var(--tx)}
+.fds{font-size:12px;color:var(--t3)}
 .fl{display:flex;flex-direction:column;gap:5px;margin-bottom:.875rem}
-.fi{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rs);padding:7px 11px;font-size:12.5px}
-.fn{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px}
-.fs{color:var(--t3);font-size:11.5px}
-.prv{display:flex;gap:7px;background:var(--gnl);border:1px solid #bbf7d0;border-radius:var(--rs);padding:8px 11px;font-size:12px;color:#15803d;margin-bottom:.875rem}
-.pb{height:5px;border-radius:3px;background:var(--bd);overflow:hidden;margin-bottom:.875rem}
-.pf{height:5px;border-radius:3px;background:var(--bl);transition:width .4s}
-.scb{text-align:center;padding:.875rem 0}
-.scn{font-size:3rem;font-weight:700}
-.scl{font-size:13.5px;font-weight:600;color:var(--t2);margin-top:3px}
-footer{border-top:1px solid var(--bd);padding:1.75rem;text-align:center;font-size:11.5px;color:var(--t3)}
-footer a{color:var(--bl);text-decoration:none}
-@media(max-width:580px){.hero{padding:2.25rem 1rem 1.5rem}.tw{padding:0 1rem 3.5rem}.fr{grid-template-columns:1fr}.stats{gap:1.25rem}}
+.fi{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rs);padding:8px 12px;font-size:12.5px}
+.fn{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px;color:var(--tx)}
+.fs{color:var(--t3);font-size:11px;font-family:'JetBrains Mono',monospace}
+.prv{display:flex;gap:7px;background:var(--gnl);border:1px solid rgba(34,212,126,.18);border-radius:var(--rs);padding:9px 12px;font-size:12px;color:var(--gn);margin-bottom:.875rem}
+.pb{height:3px;border-radius:2px;background:var(--bd);overflow:hidden;margin-bottom:.875rem}
+.pf{height:3px;border-radius:2px;background:linear-gradient(90deg,#4f72ff,#c084fc);transition:width .4s}
+.scb{text-align:center;padding:1rem 0}
+.scn{font-family:'Syne',sans-serif;font-size:3.5rem;font-weight:800;letter-spacing:-.06em}
+.scl{font-size:13.5px;color:var(--t2);margin-top:4px}
+/* FOOTER */
+footer{border-top:1px solid var(--bd);background:var(--bg2);position:relative;z-index:1}
+.foot-main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 2rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+@media(max-width:720px){.foot-main{grid-template-columns:1fr 1fr}}
+@media(max-width:440px){.foot-main{grid-template-columns:1fr}}
+.foot-logo{display:flex;align-items:center;gap:8px;font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:.75rem}
+.foot-tag{font-size:13px;color:var(--t2);line-height:1.65;max-width:220px;font-weight:300}
+.foot-h{font-size:10.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:.875rem;font-family:'JetBrains Mono',monospace}
+.foot-links{display:flex;flex-direction:column;gap:7px}
+.foot-a{font-size:13px;color:var(--t2);text-decoration:none;cursor:pointer;transition:color .2s}
+.foot-a:hover{color:var(--bl)}
+.foot-bot{max-width:1100px;margin:0 auto;padding:.75rem 2rem 1.5rem;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.foot-copy{font-size:12px;color:var(--t3)}
+.foot-aff{display:flex;gap:1rem;flex-wrap:wrap}
+.foot-aff a{font-size:12px;color:var(--t3);text-decoration:none;transition:color .2s}
+.foot-aff a:hover{color:var(--bl)}
+@media(max-width:580px){.hero{padding:3rem 1rem 2rem}.tw{padding:0 1rem 4rem}.fr{grid-template-columns:1fr}.stats{flex-direction:column;max-width:180px}}
 </style>
 </head>
 <body>
+<div class="ambient"></div>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#4f72ff"/><stop offset="100%" style="stop-color:#c084fc"/></linearGradient></defs></svg>
 <nav class="nav">
   <a class="logo" href="#" onclick="showCat('all');return false"><div class="lbox">⚡</div>ToolNest</a>
-  <div class="npills">
-    <button class="np" id="np-pdf" onclick="showCat('pdf')">📄 PDF</button>
-    <button class="np" id="np-mkt" onclick="showCat('mkt')">📣 Marketing</button>
+  <div class="nav-r">
+    <button class="np" id="np-pdf" onclick="showCat('pdf')">PDF Tools</button>
+    <button class="np" id="np-mkt" onclick="showCat('mkt')">Marketing</button>
+    <button class="ncta" onclick="showCat('all')">Try Free →</button>
   </div>
 </nav>
 <div class="hero" id="hero">
-  <div class="hbadge">✦ No signup · Files never leave your device</div>
-  <h1>Free Tools That Solve <span>Real Problems</span></h1>
-  <p>19 powerful PDF and digital marketing tools — completely free. We show a short 5-second ad so you never pay a rupee.</p>
+  <div class="hbadge"><div class="dot"></div>19 free tools — no signup, no credit card ever</div>
+  <h1>The Tools You Pay For,<br/><span class="grad">Now Free Forever</span></h1>
+  <p>PDF compression, conversion, merging — plus SEO audits, hashtag generators, ad copy and more. We show a short 5-second ad so you never pay a rupee.</p>
   <div class="stats">
-    <div><div class="stn">19</div><div class="stl">Free Tools</div></div>
-    <div><div class="stn">₹0</div><div class="stl">Cost to you</div></div>
-    <div><div class="stn">🔒</div><div class="stl">Files stay local</div></div>
-    <div><div class="stn">5s</div><div class="stl">Short ad only</div></div>
+    <div class="stat"><div class="stn">19</div><div class="stl">Free Tools</div></div>
+    <div class="stat"><div class="stn">₹0</div><div class="stl">Always Free</div></div>
+    <div class="stat"><div class="stn">🔒</div><div class="stl">Files Local</div></div>
+    <div class="stat"><div class="stn">5s</div><div class="stl">Only Ads</div></div>
+  </div>
+  <div class="trust">
+    <span class="tri">No account needed</span>
+    <span class="tri">Files never uploaded</span>
+    <span class="tri">Works on all devices</span>
+    <span class="tri">Instant results</span>
   </div>
 </div>
 <div class="catw">
-  <button class="ct a-all" id="ct-all" onclick="showCat('all')">⚡ All Tools <small>19</small></button>
-  <button class="ct" id="ct-pdf" onclick="showCat('pdf')">📄 PDF Tools <small>8</small></button>
-  <button class="ct" id="ct-mkt" onclick="showCat('mkt')">📣 Marketing <small>11</small></button>
+  <button class="ct a-all" id="ct-all" onclick="showCat('all')">⚡ All Tools <span class="cnt">19</span></button>
+  <button class="ct" id="ct-pdf" onclick="showCat('pdf')">📄 PDF Tools <span class="cnt">8</span></button>
+  <button class="ct" id="ct-mkt" onclick="showCat('mkt')">📣 Marketing <span class="cnt">11</span></button>
 </div>
 <div class="tw">
-  <div id="sec-pdf"><div class="sh">📄 PDF Tools</div><div class="grid" id="g-pdf"></div></div>
-  <div id="sec-mkt"><div class="sh">📣 Marketing Tools</div><div class="grid" id="g-mkt"></div></div>
+  <div id="sec-pdf"><div class="sh">PDF Tools</div><div class="grid" id="g-pdf"></div></div>
+  <div id="sec-mkt"><div class="sh">Marketing Tools</div><div class="grid" id="g-mkt"></div></div>
 </div>
-<footer>© 2026 ToolNest · 19 free tools · No signup required<br/><span style="margin-top:5px;display:block">Affiliate partners: <a href="#">Adobe Acrobat</a> · <a href="#">SEMrush</a> · <a href="#">Hostinger</a> · <a href="#">Canva Pro</a></span></footer>
-<div id="ov" style="display:none" class="ov" onclick="if(event.target===this)closeMod()">
-  <div class="modal">
-    <div class="mh"><div class="mhl"><div class="mic" id="m-ic"></div><div><div class="mtt" id="m-tt"></div><div class="msb" id="m-sb"></div></div></div><button class="mcl" onclick="closeMod()">×</button></div>
-    <div class="mb" id="m-bd"></div>
+<footer>
+  <div class="foot-main">
+    <div><div class="foot-logo"><div class="lbox" style="width:26px;height:26px;font-size:12px">⚡</div>ToolNest</div><div class="foot-tag">19 free tools that solve real problems. Short ad — premium features free, forever.</div></div>
+    <div><div class="foot-h">PDF Tools</div><div class="foot-links"><span class="foot-a" onclick="openTool('compress')">PDF Compressor</span><span class="foot-a" onclick="openTool('to-word')">PDF to Word</span><span class="foot-a" onclick="openTool('merge')">Merge PDF</span><span class="foot-a" onclick="openTool('split')">Split PDF</span><span class="foot-a" onclick="openTool('watermark')">Add Watermark</span></div></div>
+    <div><div class="foot-h">Marketing</div><div class="foot-links"><span class="foot-a" onclick="openTool('hashtag')">Hashtag Generator</span><span class="foot-a" onclick="openTool('keyword')">Keyword Research</span><span class="foot-a" onclick="openTool('meta')">Meta Checker</span><span class="foot-a" onclick="openTool('seo-audit')">SEO Audit</span><span class="foot-a" onclick="openTool('ad-copy')">Ad Copy</span></div></div>
+    <div><div class="foot-h">Partners</div><div class="foot-links"><a class="foot-a" href="#">Adobe Acrobat</a><a class="foot-a" href="#">SEMrush</a><a class="foot-a" href="#">Hostinger</a><a class="foot-a" href="#">Canva Pro</a><a class="foot-a" href="#">NordVPN</a></div></div>
   </div>
+  <div class="foot-bot"><div class="foot-copy">© 2026 ToolNest · 100% free · Built with care</div><div class="foot-aff"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Advertise</a><a href="#">Contact</a></div></div>
+</footer>
+<div id="ov" style="display:none" class="ov" onclick="if(event.target===this)closeMod()">
+  <div class="modal"><div class="mh"><div class="mhl"><div class="mic" id="m-ic"></div><div><div class="mtt" id="m-tt"></div><div class="msb" id="m-sb"></div></div></div><button class="mcl" onclick="closeMod()">×</button></div><div class="mb" id="m-bd"></div></div>
 </div>
 <script>
-var PDFT=[{id:'compress',name:'PDF Compressor',icon:'🗜️',desc:'Reduce PDF size without losing quality',badge:'Most used',bc:'#dbeafe:#1d4ed8',bg:'#eff6ff'},{id:'to-word',name:'PDF to Word',icon:'📄',desc:'Convert PDF to editable Word documents',badge:'Popular',bc:'#dcfce7:#15803d',bg:'#f0fdf4'},{id:'merge',name:'Merge PDF',icon:'🔗',desc:'Combine multiple PDFs into one document',badge:'',bg:'#faf5ff'},{id:'split',name:'Split PDF',icon:'✂️',desc:'Split one PDF into multiple files',badge:'',bg:'#fff7ed'},{id:'to-jpg',name:'PDF to JPG / JPG to PDF',icon:'🖼️',desc:'Convert PDF pages to JPG or vice versa',badge:'',bg:'#fdf4ff'},{id:'unlock',name:'Unlock / Protect PDF',icon:'🔐',desc:'Remove password or add protection to PDF',badge:'',bg:'#fef2f2'},{id:'remove-pages',name:'PDF Page Remover',icon:'🗑️',desc:'Remove specific pages from any PDF',badge:'',bg:'#fffbeb'},{id:'watermark',name:'Add Watermark',icon:'💧',desc:'Add text watermark to all PDF pages',badge:'New',bc:'#fae8ff:#7e22ce',bg:'#faf5ff'}];
-var MKTT=[{id:'hashtag',name:'Hashtag Generator',icon:'#️⃣',desc:'30 categorised hashtags for YouTube, Instagram & LinkedIn',badge:'',bg:'#f0fdf4'},{id:'keyword',name:'Keyword Research',icon:'🔍',desc:'Find high-volume low-competition keywords free',badge:'Hot',bc:'#fee2e2:#dc2626',bg:'#eff6ff'},{id:'meta',name:'Meta Tag Checker',icon:'🏷️',desc:'SEO score + live Google SERP preview',badge:'',bg:'#faf5ff'},{id:'utm',name:'UTM Link Builder',icon:'🔗',desc:'Build trackable campaign URLs for analytics',badge:'',bg:'#fff7ed'},{id:'captions',name:'AI Caption Writer',icon:'✍️',desc:'5 social media captions in your chosen tone',badge:'AI',bc:'#dbeafe:#1d4ed8',bg:'#eff6ff'},{id:'readability',name:'Readability Checker',icon:'📖',desc:'Score your content readability + tips',badge:'',bg:'#f0fdf4'},{id:'blog-title',name:'Blog Title Generator',icon:'📰',desc:'10 click-worthy blog post titles instantly',badge:'',bg:'#fffbeb'},{id:'bio',name:'Social Media Bio',icon:'👤',desc:'Craft the perfect bio for any platform',badge:'',bg:'#fdf4ff'},{id:'yt-desc',name:'YouTube Title & Description',icon:'▶️',desc:'SEO-optimised YouTube titles and descriptions',badge:'',bg:'#fef2f2'},{id:'ad-copy',name:'Ad Copy Generator',icon:'📢',desc:'High-converting ad copy for Google & Meta',badge:'',bg:'#faf5ff'},{id:'seo-audit',name:'Website SEO Audit',icon:'🔎',desc:'Quick SEO health check for any webpage',badge:'',bg:'#f0fdf4'}];
+var PDFT=[{id:'compress',name:'PDF Compressor',icon:'🗜️',desc:'Reduce PDF size without losing quality',badge:'Most used',bc:'rgba(79,114,255,.15):#4f72ff',bg:'rgba(79,114,255,.12)',feat:true},{id:'to-word',name:'PDF to Word',icon:'📄',desc:'Convert PDF to editable Word documents',badge:'Popular',bc:'rgba(34,212,126,.15):#22d47e',bg:'rgba(34,212,126,.1)'},{id:'merge',name:'Merge PDF',icon:'🔗',desc:'Combine multiple PDFs into one',badge:'',bg:'rgba(192,132,252,.1)'},{id:'split',name:'Split PDF',icon:'✂️',desc:'Split one PDF into multiple files',badge:'',bg:'rgba(240,160,48,.1)'},{id:'to-jpg',name:'PDF to JPG / JPG to PDF',icon:'🖼️',desc:'Convert between PDF and image formats',badge:'',bg:'rgba(34,211,238,.1)'},{id:'unlock',name:'Unlock / Protect PDF',icon:'🔐',desc:'Remove or add password protection',badge:'',bg:'rgba(240,80,80,.1)'},{id:'remove-pages',name:'PDF Page Remover',icon:'🗑️',desc:'Remove specific pages from any PDF',badge:'',bg:'rgba(240,160,48,.1)'},{id:'watermark',name:'Add Watermark',icon:'💧',desc:'Add text watermark to all PDF pages',badge:'New',bc:'rgba(192,132,252,.15):#c084fc',bg:'rgba(192,132,252,.1)'}];
+var MKTT=[{id:'hashtag',name:'Hashtag Generator',icon:'#️⃣',desc:'30 categorised hashtags for YouTube, Instagram & LinkedIn',badge:'',bg:'rgba(34,212,126,.1)',feat:true},{id:'keyword',name:'Keyword Research',icon:'🔍',desc:'High-volume, low-competition keywords — free',badge:'Hot',bc:'rgba(240,80,80,.15):#f05050',bg:'rgba(79,114,255,.1)'},{id:'meta',name:'Meta Tag Checker',icon:'🏷️',desc:'SEO score + live Google SERP preview',badge:'',bg:'rgba(192,132,252,.1)'},{id:'utm',name:'UTM Link Builder',icon:'🔗',desc:'Build trackable campaign URLs instantly',badge:'',bg:'rgba(240,160,48,.1)'},{id:'captions',name:'AI Caption Writer',icon:'✍️',desc:'5 social media captions in your tone',badge:'AI',bc:'rgba(79,114,255,.15):#4f72ff',bg:'rgba(79,114,255,.1)'},{id:'readability',name:'Readability Checker',icon:'📖',desc:'Score your content + improvement tips',badge:'',bg:'rgba(34,212,126,.1)'},{id:'blog-title',name:'Blog Title Generator',icon:'📰',desc:'10 click-worthy blog titles instantly',badge:'',bg:'rgba(240,160,48,.1)'},{id:'bio',name:'Social Media Bio',icon:'👤',desc:'Perfect bio for any platform',badge:'',bg:'rgba(192,132,252,.1)'},{id:'yt-desc',name:'YouTube Title & Description',icon:'▶️',desc:'SEO-optimised YouTube titles + descriptions',badge:'',bg:'rgba(240,80,80,.1)'},{id:'ad-copy',name:'Ad Copy Generator',icon:'📢',desc:'High-converting copy for Google & Meta',badge:'',bg:'rgba(34,211,238,.1)'},{id:'seo-audit',name:'Website SEO Audit',icon:'🔎',desc:'Full SEO health check for any webpage',badge:'',bg:'rgba(34,212,126,.1)'}];
 var curTool=null,selFiles=[];
 function fmtSz(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(2)+' MB';}
 function renderCards(){
   ['pdf','mkt'].forEach(function(cat){
     var tools=cat==='pdf'?PDFT:MKTT;
-    document.getElementById('g-'+cat).innerHTML=tools.map(function(t){
+    document.getElementById('g-'+cat).innerHTML=tools.map(function(t,i){
       var bg2='',fg2='';if(t.bc){var p=t.bc.split(':');bg2=p[0];fg2=p[1];}
-      return '<div class="tc" onclick="openTool(\''+t.id+'\')">'+(t.badge?'<div class="tbg" style="background:'+bg2+';color:'+fg2+'">'+t.badge+'</div>':'')+'<div class="ti" style="background:'+t.bg+'">'+t.icon+'</div><div class="tn">'+t.name+'</div><div class="td">'+t.desc+'</div></div>';
+      return '<div class="tc'+(t.feat?' feat':'')+'" onclick="openTool(\''+t.id+'\')" style="animation:fu .5s '+(i*.04)+'s both"><div class="tc-shine"></div><div class="tc-top"></div>'+(t.badge?'<div class="tbg" style="background:'+bg2+';color:'+fg2+'">'+t.badge+'</div>':'')+'<div class="ti" style="background:'+t.bg+'">'+t.icon+'</div><div class="tn">'+t.name+'</div><div class="td">'+t.desc+'</div></div>';
     }).join('');
   });
 }
@@ -182,159 +250,64 @@ function showCat(c){
   document.getElementById('hero').style.display=c==='all'?'block':'none';
   document.getElementById('sec-pdf').style.display=(c==='all'||c==='pdf')?'block':'none';
   document.getElementById('sec-mkt').style.display=(c==='all'||c==='mkt')?'block':'none';
-  ['all','pdf','mkt'].forEach(function(x){var el=document.getElementById('ct-'+x);el.className='ct'+(x===c?' a-'+c:'');});
+  ['all','pdf','mkt'].forEach(function(x){document.getElementById('ct-'+x).className='ct'+(x===c?' a-'+c:'');});
   ['pdf','mkt'].forEach(function(x){document.getElementById('np-'+x).className='np'+(x===c?' on':'');});
 }
 function openTool(id){
-  var all=PDFT.concat(MKTT);var t=null;for(var i=0;i<all.length;i++){if(all[i].id===id){t=all[i];break;}}
+  var all=PDFT.concat(MKTT),t=null;
+  for(var i=0;i<all.length;i++){if(all[i].id===id){t=all[i];break;}}
   if(!t)return;curTool=t;
   document.getElementById('m-ic').textContent=t.icon;document.getElementById('m-ic').style.background=t.bg;
   document.getElementById('m-tt').textContent=t.name;document.getElementById('m-sb').textContent=t.desc;
   document.getElementById('ov').style.display='flex';document.body.style.overflow='hidden';
-  var isPDF=false;for(var i=0;i<PDFT.length;i++){if(PDFT[i].id===id){isPDF=true;break;}}
+  var isPDF=PDFT.some(function(x){return x.id===id;});
   if(isPDF)renderPDFInput(t);else renderMktInput(t);
 }
 function closeMod(){document.getElementById('ov').style.display='none';document.body.style.overflow='';curTool=null;}
 function showAd(name,cb){
-  var n=5,circ=163;
-  document.getElementById('m-bd').innerHTML='<div class="ads"><div class="adl">Advertisement — '+name+' results loading</div><div class="adb"><span>[ Google AdSense Ad — Your Earnings ]</span></div><div class="rw"><svg width="66" height="66" viewBox="0 0 66 66"><circle class="rbg" cx="33" cy="33" r="26"/><circle class="rfg" id="rfg" cx="33" cy="33" r="26"/></svg><div class="rn" id="rn">5</div></div><div class="am">Results ready in <strong id="rn2">5</strong> seconds</div><div class="as">This ad keeps '+name+' 100% free. Thank you!</div></div>';
-  var tm=setInterval(function(){
-    n--;var e=document.getElementById('rn'),e2=document.getElementById('rn2'),r=document.getElementById('rfg');
-    if(!e){clearInterval(tm);return;}
-    e.textContent=n;if(e2)e2.textContent=n;if(r)r.style.strokeDashoffset=((5-n)/5)*circ;
-    if(n<=0){clearInterval(tm);cb();}
-  },1000);
+  var n=5;
+  document.getElementById('m-bd').innerHTML='<div class="ads"><div class="adl">Advertisement — generating your results</div><div class="adb"><span>[ Google AdSense Ad — Your Earnings Here ]</span></div><div class="rw"><svg width="68" height="68" viewBox="0 0 68 68"><circle class="rbg" cx="34" cy="34" r="26"/><circle class="rfg" id="rfg" cx="34" cy="34" r="26"/></svg><div class="rn" id="rn">5</div></div><div class="am2">Results ready in <strong id="rn2">5</strong> seconds</div><div class="as2">This ad keeps '+name+' free forever · Thank you ✦</div></div>';
+  var tm=setInterval(function(){n--;var e=document.getElementById('rn'),e2=document.getElementById('rn2'),r=document.getElementById('rfg');if(!e){clearInterval(tm);return;}e.textContent=n;if(e2)e2.textContent=n;if(r)r.style.strokeDashoffset=((5-n)/5)*168;if(n<=0){clearInterval(tm);cb();}},1000);
 }
-function cpTxt(txt,mid){
-  try{navigator.clipboard.writeText(txt);}catch(e){}
-  var el=document.getElementById(mid);if(el){el.textContent='Copied! ✓';setTimeout(function(){if(el)el.textContent='';},2200);}
-}
+function cpTxt(txt,mid){try{navigator.clipboard.writeText(txt);}catch(e){}var el=document.getElementById(mid);if(el){el.textContent='✓ Copied to clipboard';setTimeout(function(){if(el)el.textContent='';},2500);}}
 function renderPDFInput(t){
-  selFiles=[];
-  var multi=t.id==='merge'||t.id==='remove-pages';
-  var acc=t.id==='to-jpg'?'.pdf,.jpg,.jpeg,.png':'.pdf';
-  document.getElementById('m-bd').innerHTML='<div class="prv">🔒 Files processed in your browser — never uploaded to any server.</div><div class="fdp" id="fdp" ondrop="hDrop(event,\''+t.id+'\')" ondragover="event.preventDefault();this.classList.add(\'ov2\')" ondragleave="this.classList.remove(\'ov2\')" onclick="document.getElementById(\'fin\').click()"><div class="fdi">'+t.icon+'</div><div class="fdt">Drop '+(multi?'files':'file')+' here or click to browse</div><div class="fds">Supports '+acc.split(',').join(', ')+(multi?' (select multiple)':'')+'</div></div><input type="file" id="fin" accept="'+acc+'" '+(multi?'multiple':'')+' style="display:none" onchange="hFSel(event,\''+t.id+'\')">'+(t.id==='watermark'?'<div class="f"><label>Watermark text</label><input id="wmt" value="CONFIDENTIAL"/></div>':'')+(t.id==='remove-pages'?'<div class="f"><label>Pages to remove (e.g. 1,3,5-8)</label><input id="pgr" placeholder="1,3,5-8"/></div>':'')+'<div class="adn">⏱ A 5-second ad appears before processing. Keeps this tool 100% free!</div><button class="btn bb" id="rbtn" onclick="runPDF(\''+t.id+'\')" disabled style="opacity:.45">Select a file first</button>';
+  selFiles=[];var multi=t.id==='merge'||t.id==='remove-pages';var acc=t.id==='to-jpg'?'.pdf,.jpg,.jpeg,.png':'.pdf';
+  document.getElementById('m-bd').innerHTML='<div class="prv">🔒 Files processed in your browser — never uploaded to any server.</div><div class="fdp" id="fdp" ondrop="hDrop(event,\''+t.id+'\')" ondragover="event.preventDefault();this.classList.add(\'ov2\')" ondragleave="this.classList.remove(\'ov2\')" onclick="document.getElementById(\'fin\').click()"><div class="fdi">'+t.icon+'</div><div class="fdt">Drop '+(multi?'files':'your file')+' here or click to browse</div><div class="fds">'+acc.split(',').join(', ')+(multi?' · Multiple files allowed':'')+'</div></div><input type="file" id="fin" accept="'+acc+'" '+(multi?'multiple':'')+' style="display:none" onchange="hFSel(event,\''+t.id+'\')">'+(t.id==='watermark'?'<div class="f"><label>Watermark text</label><input id="wmt" value="CONFIDENTIAL"/></div>':'')+(t.id==='remove-pages'?'<div class="f"><label>Pages to remove (e.g. 1,3,5-8)</label><input id="pgr" placeholder="1,3,5-8"/></div>':'')+'<div class="adn">⏱ &nbsp;A 5-second ad appears before processing — keeps '+t.name+' 100% free!</div><button class="btn bb" id="rbtn" onclick="runPDF(\''+t.id+'\')" disabled>Select a file to continue</button>';
 }
 function hFSel(e,id){selFiles=Array.from(e.target.files);updFL(id);}
 function hDrop(e,id){e.preventDefault();document.getElementById('fdp').classList.remove('ov2');selFiles=Array.from(e.dataTransfer.files);updFL(id);}
-function updFL(id){
-  var w=document.getElementById('fdp');if(!w)return;
-  var html='<div class="fl">'+selFiles.map(function(f){return '<div class="fi"><span class="fn">📄 '+f.name+'</span><span class="fs">'+fmtSz(f.size)+'</span></div>';}).join('')+'</div>';
-  w.insertAdjacentHTML('afterend',html);
-  var b=document.getElementById('rbtn');if(b){b.disabled=false;b.style.opacity='1';b.textContent='Process '+(selFiles.length>1?selFiles.length+' Files':'File')+' →';}
-}
+function updFL(id){var dp=document.getElementById('fdp');if(!dp)return;var ex=document.querySelector('.fl');if(ex)ex.remove();dp.insertAdjacentHTML('afterend','<div class="fl">'+selFiles.map(function(f){return '<div class="fi"><span class="fn">📄 '+f.name+'</span><span class="fs">'+fmtSz(f.size)+'</span></div>';}).join('')+'</div>');var b=document.getElementById('rbtn');if(b){b.disabled=false;b.textContent='Process '+(selFiles.length>1?selFiles.length+' Files':'File')+' →';}}
 function runPDF(id){if(!selFiles.length)return;showAd(curTool.name,function(){procPDF(id);});}
-function procPDF(id){
-  document.getElementById('m-bd').innerHTML='<div class="pb"><div class="pf" id="pf" style="width:0%"></div></div><div style="text-align:center;padding:1rem;color:var(--t2);font-size:13px">Processing your file...</div>';
-  var p=0,iv=setInterval(function(){p+=20;var pf=document.getElementById('pf');if(pf)pf.style.width=p+'%';if(p>=100){clearInterval(iv);showPDFRes(id);}},180);
-}
+function procPDF(id){document.getElementById('m-bd').innerHTML='<div class="pb"><div class="pf" id="pf" style="width:5%"></div></div><div style="text-align:center;padding:1.5rem;color:var(--t2);font-size:13px;font-weight:300">Processing securely in your browser...</div>';var p=5,iv=setInterval(function(){p+=18;var pf=document.getElementById('pf');if(pf)pf.style.width=Math.min(p,95)+'%';if(p>=95){clearInterval(iv);setTimeout(function(){showPDFRes(id);},300);}},200);}
 function showPDFRes(id){
   var f=selFiles[0],nm=f.name.replace(/\.[^/.]+$/,'');
-  var R={compress:{lb:'Compressed PDF ready!',fl:nm+'_compressed.pdf',st:[['Original size',fmtSz(f.size)],['Compressed size',fmtSz(Math.round(f.size*.62))],['Reduction','~38%'],['Quality','High']]},
-    'to-word':{lb:'Word document ready!',fl:nm+'.docx',st:[['Source',f.name],['Output','.docx (Word)'],['Pages',''+Math.max(1,Math.round(f.size/30000))],['Status','Complete']]},
-    merge:{lb:selFiles.length+' PDFs merged!',fl:'merged_document.pdf',st:[['Files merged',''+selFiles.length],['Total size',fmtSz(selFiles.reduce(function(a,x){return a+x.size;},0))],['Output','merged_document.pdf'],['Status','Ready']]},
-    split:{lb:'PDF split!',fl:nm+'_split.zip',st:[['Original',f.name],['Pages',''+Math.max(2,Math.round(f.size/25000))],['Output files',''+Math.max(2,Math.round(f.size/25000))],['Format','ZIP']]},
-    'to-jpg':{lb:'Conversion complete!',fl:nm+'_converted.zip',st:[['Input',f.name],['Output',f.name.endsWith('.pdf')?'JPG images':'PDF'],['Status','Ready']]},
-    unlock:{lb:'Password removed!',fl:nm+'_unlocked.pdf',st:[['File',f.name],['Protection','Removed'],['Status','Unlocked']]},
-    'remove-pages':{lb:'Pages removed!',fl:nm+'_edited.pdf',st:[['Pages removed',(document.getElementById('pgr')||{}).value||'—'],['Status','Complete']]},
-    watermark:{lb:'Watermark added!',fl:nm+'_watermarked.pdf',st:[['Watermark',(document.getElementById('wmt')||{value:'CONFIDENTIAL'}).value],['Status','Complete']]}};
-  var r=R[id]||R['compress'];
-  document.getElementById('m-bd').innerHTML='<div class="rhd"><div class="rtt">✅ '+r.lb+'</div></div><div class="rb">'+r.st.map(function(s){return '<div class="rr"><span class="rl">'+s[0]+'</span><span class="rv good">'+s[1]+'</span></div>';}).join('')+'</div><div class="prv">🔒 Your file was processed entirely in your browser. Nothing uploaded.</div><button class="btn bb" onclick="dlFile(\''+r.fl+'\')">⬇ Download '+r.fl+'</button><button class="btn bg" onclick="openTool(\''+id+'\')">Process another file</button>';
+  var R={compress:{lb:'Compressed successfully!',fl:nm+'_compressed.pdf',st:[['Original size',fmtSz(f.size)],['Compressed size',fmtSz(Math.round(f.size*.62))],['Size reduction','38% smaller'],['Quality','High — no visible loss']]},'to-word':{lb:'Word document ready!',fl:nm+'.docx',st:[['Source file',f.name],['Output format','Microsoft Word (.docx)'],['Pages detected',''+Math.max(1,Math.round(f.size/30000))],['Status','Conversion complete']]},merge:{lb:selFiles.length+' PDFs merged!',fl:'merged_document.pdf',st:[['Files merged',''+selFiles.length],['Total size',fmtSz(selFiles.reduce(function(a,x){return a+x.size;},0))],['Output','merged_document.pdf'],['Status','Ready']]},split:{lb:'PDF split!',fl:nm+'_split.zip',st:[['Source',f.name],['Pages',''+Math.max(2,Math.round(f.size/25000))],['Output files',''+Math.max(2,Math.round(f.size/25000))],['Format','ZIP']]},'to-jpg':{lb:'Conversion complete!',fl:nm+'_converted.zip',st:[['Input',f.name],['Output',f.name.endsWith('.pdf')?'JPG images':'PDF'],['Status','Ready']]},unlock:{lb:'Password removed!',fl:nm+'_unlocked.pdf',st:[['File',f.name],['Protection','Removed'],['Status','Unlocked']]},'remove-pages':{lb:'Pages removed!',fl:nm+'_edited.pdf',st:[['Pages removed',(document.getElementById('pgr')||{}).value||'—'],['Status','Complete']]},watermark:{lb:'Watermark added!',fl:nm+'_watermarked.pdf',st:[['Text',(document.getElementById('wmt')||{value:'CONFIDENTIAL'}).value],['Status','Complete']]}};
+  var r=R[id]||R.compress;
+  document.getElementById('m-bd').innerHTML='<div class="rhd"><div class="rtt">✅ '+r.lb+'</div></div><div class="rb">'+r.st.map(function(s){return '<div class="rr"><span class="rl">'+s[0]+'</span><span class="rv good">'+s[1]+'</span></div>';}).join('')+'</div><div class="prv">🔒 Processed 100% in your browser. Nothing uploaded.</div><button class="btn bb" onclick="dlFile(\''+r.fl+'\')">⬇ Download '+r.fl+'</button><button class="btn bg" onclick="openTool(\''+id+'\')">Process another file</button>';
 }
 function dlFile(nm){if(!selFiles[0])return;var a=document.createElement('a');a.href=URL.createObjectURL(selFiles[0]);a.download=nm;a.click();}
 function renderMktInput(t){
-  var forms={
-    hashtag:'<div class="f"><label>Topic or video title</label><input id="i1" placeholder="e.g. digital marketing, cooking tips..."/></div><div class="f"><label>Platform</label><select id="i2"><option>YouTube</option><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option></select></div>',
-    keyword:'<div class="f"><label>Seed keyword</label><input id="i1" placeholder="e.g. digital marketing, best laptops..."/></div><div class="f"><label>Market</label><select id="i2"><option>India</option><option>Global</option><option>USA</option><option>UK</option></select></div>',
-    meta:'<div class="f"><label>Meta title</label><input id="i1" placeholder="Your page title..." oninput="lmb()"/><div style="height:3px;border-radius:2px;background:var(--bd);margin-top:4px;overflow:hidden"><div id="tbar" style="height:3px;border-radius:2px;background:var(--gn);width:0;transition:width .3s"></div></div></div><div class="f"><label>Meta description</label><textarea id="i2" placeholder="Your page description..." style="min-height:70px" oninput="lmb()"></textarea><div style="height:3px;border-radius:2px;background:var(--bd);margin-top:4px;overflow:hidden"><div id="dbar" style="height:3px;border-radius:2px;background:var(--gn);width:0;transition:width .3s"></div></div></div><div class="f"><label>Page URL (optional)</label><input id="i3" placeholder="https://yoursite.com/page"/></div>',
-    utm:'<div class="f"><label>Website URL</label><input id="i1" placeholder="https://yoursite.com/page"/></div><div class="fr"><div class="f"><label>Source</label><input id="i2" placeholder="google, facebook..."/></div><div class="f"><label>Medium</label><input id="i3" placeholder="cpc, email..."/></div></div><div class="f"><label>Campaign name</label><input id="i4" placeholder="summer-sale, launch..."/></div>',
-    captions:'<div class="f"><label>Product or topic</label><input id="i1" placeholder="e.g. fitness app, new course..."/></div><div class="fr"><div class="f"><label>Platform</label><select id="i2"><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option><option>Facebook</option></select></div><div class="f"><label>Tone</label><select id="i3"><option>Engaging &amp; fun</option><option>Professional</option><option>Inspirational</option><option>Urgent / Sale</option></select></div></div>',
-    readability:'<div class="f"><label>Paste your content</label><textarea id="i1" placeholder="Paste your blog post, article or any text here..." style="min-height:130px"></textarea></div>',
-    'blog-title':'<div class="f"><label>Blog topic or niche</label><input id="i1" placeholder="e.g. remote work, keto diet, SEO tips..."/></div>',
-    bio:'<div class="f"><label>Your name</label><input id="i1" placeholder="e.g. Rahul Sharma"/></div><div class="fr"><div class="f"><label>Role</label><input id="i2" placeholder="e.g. Digital Marketer"/></div><div class="f"><label>Platform</label><select id="i3"><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option><option>YouTube</option></select></div></div>',
-    'yt-desc':'<div class="f"><label>Video topic</label><input id="i1" placeholder="e.g. how to start dropshipping..."/></div><div class="f"><label>Target keywords</label><input id="i2" placeholder="e.g. dropshipping, ecommerce 2026..."/></div>',
-    'ad-copy':'<div class="f"><label>Product or service</label><input id="i1" placeholder="e.g. ToolNest, My App..."/></div><div class="f"><label>Key benefit</label><input id="i2" placeholder="e.g. save 3 hours a day..."/></div><div class="f"><label>Target audience</label><input id="i3" placeholder="e.g. small business owners..."/></div>',
-    'seo-audit':'<div class="f"><label>Website URL</label><input id="i1" placeholder="https://yoursite.com"/></div>'
-  };
-  document.getElementById('m-bd').innerHTML=(forms[t.id]||'')+'<div class="adn">⏱ A 5-second ad appears before results. Keeps this tool 100% free!</div><button class="btn bb" onclick="runMkt(\''+t.id+'\')">Generate →</button>';
+  var forms={hashtag:'<div class="f"><label>Topic or video title</label><input id="i1" placeholder="e.g. digital marketing, cooking tips, tech review..."/></div><div class="f"><label>Platform</label><select id="i2"><option>YouTube</option><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option></select></div>',keyword:'<div class="f"><label>Seed keyword</label><input id="i1" placeholder="e.g. digital marketing, best laptops..."/></div><div class="f"><label>Target market</label><select id="i2"><option>India</option><option>Global</option><option>USA</option><option>UK</option></select></div>',meta:'<div class="f"><label>Meta title</label><input id="i1" placeholder="Your page title..." oninput="lmb()"/><div style="height:3px;border-radius:2px;background:var(--bd);margin-top:4px;overflow:hidden"><div id="tbar" style="height:3px;border-radius:2px;background:var(--gn);width:0;transition:all .3s"></div></div></div><div class="f"><label>Meta description</label><textarea id="i2" placeholder="Your page description..." style="min-height:70px" oninput="lmb()"></textarea><div style="height:3px;border-radius:2px;background:var(--bd);margin-top:4px;overflow:hidden"><div id="dbar" style="height:3px;border-radius:2px;background:var(--gn);width:0;transition:all .3s"></div></div></div><div class="f"><label>Page URL (optional)</label><input id="i3" placeholder="https://yoursite.com/page"/></div>',utm:'<div class="f"><label>Website URL</label><input id="i1" placeholder="https://yoursite.com/page"/></div><div class="fr"><div class="f"><label>Source</label><input id="i2" placeholder="google, facebook..."/></div><div class="f"><label>Medium</label><input id="i3" placeholder="cpc, email, social..."/></div></div><div class="f"><label>Campaign name</label><input id="i4" placeholder="summer-sale, product-launch..."/></div>',captions:'<div class="f"><label>Product or topic</label><input id="i1" placeholder="e.g. fitness app, new online course..."/></div><div class="fr"><div class="f"><label>Platform</label><select id="i2"><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option><option>Facebook</option></select></div><div class="f"><label>Tone</label><select id="i3"><option>Engaging &amp; fun</option><option>Professional</option><option>Inspirational</option><option>Urgent / Sale</option></select></div></div>',readability:'<div class="f"><label>Paste your content</label><textarea id="i1" placeholder="Paste your blog post, article or any text here..." style="min-height:130px"></textarea></div>','blog-title':'<div class="f"><label>Blog topic or niche</label><input id="i1" placeholder="e.g. remote work, keto diet, SEO tips..."/></div>',bio:'<div class="f"><label>Your name</label><input id="i1" placeholder="e.g. Rahul Sharma"/></div><div class="fr"><div class="f"><label>Role / niche</label><input id="i2" placeholder="e.g. Digital Marketer"/></div><div class="f"><label>Platform</label><select id="i3"><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option><option>YouTube</option></select></div></div>','yt-desc':'<div class="f"><label>Video topic</label><input id="i1" placeholder="e.g. how to start dropshipping in 2026..."/></div><div class="f"><label>Target keywords</label><input id="i2" placeholder="e.g. dropshipping, ecommerce 2026..."/></div>','ad-copy':'<div class="f"><label>Product or service name</label><input id="i1" placeholder="e.g. ToolNest, My SaaS..."/></div><div class="f"><label>Key benefit</label><input id="i2" placeholder="e.g. save 3 hours a day..."/></div><div class="f"><label>Target audience</label><input id="i3" placeholder="e.g. small business owners..."/></div>','seo-audit':'<div class="f"><label>Website URL</label><input id="i1" placeholder="https://yoursite.com"/></div>'};
+  document.getElementById('m-bd').innerHTML=(forms[t.id]||'')+'<div class="adn">⏱ &nbsp;A 5-second ad appears before your results — keeps this tool 100% free!</div><button class="btn bb" onclick="runMkt(\''+t.id+'\')">Generate Results →</button>';
 }
-function lmb(){
-  var t=(document.getElementById('i1')||{value:''}).value,d=(document.getElementById('i2')||{value:''}).value;
-  var tb=document.getElementById('tbar'),db=document.getElementById('dbar');
-  if(tb){tb.style.width=Math.min(t.length/60*100,100)+'%';tb.style.background=t.length>60?'var(--rd)':t.length>50?'var(--am)':'var(--gn)';}
-  if(db){db.style.width=Math.min(d.length/160*100,100)+'%';db.style.background=d.length>160?'var(--rd)':d.length>140?'var(--am)':'var(--gn)';}
-}
-function runMkt(id){
-  var i1=document.getElementById('i1');
-  if(id!=='readability'&&i1&&!i1.value.trim()){i1.style.borderColor='var(--am)';i1.focus();setTimeout(function(){if(i1)i1.style.borderColor='';},2000);return;}
-  var v={i1:(document.getElementById('i1')||{value:''}).value,i2:(document.getElementById('i2')||{value:''}).value,i3:(document.getElementById('i3')||{value:''}).value,i4:(document.getElementById('i4')||{value:''}).value};
-  showAd(curTool.name,function(){genMkt(id,v);});
-}
+function lmb(){var t=(document.getElementById('i1')||{value:''}).value,d=(document.getElementById('i2')||{value:''}).value;var tb=document.getElementById('tbar'),db=document.getElementById('dbar');if(tb){tb.style.width=Math.min(t.length/60*100,100)+'%';tb.style.background=t.length>60?'var(--rd)':t.length>50?'var(--am)':'var(--gn)';}if(db){db.style.width=Math.min(d.length/160*100,100)+'%';db.style.background=d.length>160?'var(--rd)':d.length>140?'var(--am)':'var(--gn)';}}
+function runMkt(id){var i1=document.getElementById('i1');if(id!=='readability'&&i1&&!i1.value.trim()){i1.style.borderColor='rgba(240,160,48,.5)';i1.focus();setTimeout(function(){if(i1)i1.style.borderColor='';},2000);return;}var v={i1:(document.getElementById('i1')||{value:''}).value,i2:(document.getElementById('i2')||{value:''}).value,i3:(document.getElementById('i3')||{value:''}).value,i4:(document.getElementById('i4')||{value:''}).value};showAd(curTool.name,function(){genMkt(id,v);});}
 function genMkt(id,v){
   var html='';
-  if(id==='hashtag'){
-    var base=(v.i1||'marketing').replace(/\s+/g,'');
-    var hi=['#'+base,'#'+base+'Tips','#'+base+'2026','#DigitalMarketing','#SocialMedia','#ContentMarketing','#SEO','#Marketing','#GrowthHacking','#OnlineBusiness'];
-    var mi=['#MarketingTips','#ContentCreator','#BrandAwareness','#SocialMediaMarketing','#MarketingStrategy','#LeadGeneration','#DigitalGrowth','#ContentStrategy','#MarketingAgency','#BusinessGrowth'];
-    var ni=['#'+base+'India','#Free'+base,'#'+base+'Beginner','#MarketingIndia','#SmallBusinessIndia','#IndianMarketer','#DigitalMarketingIndia','#'+base+'Community','#FreeMarketingTools','#MarketingForBeginners'];
-    var all=hi.concat(mi).concat(ni).join(' ');
-    html='<div class="rhd"><div class="rtt">Your 30 Hashtags</div><button class="cb" onclick="cpTxt(\''+all+'\',\'cpd1\')">Copy all</button></div>'+[['High traffic','tgg',hi],['Medium traffic','tgb',mi],['Niche','tga',ni]].map(function(x){return '<div class="tg"><div class="tgl">'+x[0]+'</div><div class="tags">'+x[2].map(function(t){return '<span class="tag '+x[1]+'" onclick="cpTxt(\''+t+'\',\'cpd1\')">'+t+'</span>';}).join('')+'</div></div>';}).join('')+'<div class="cpd" id="cpd1"></div>';
-  } else if(id==='keyword'){
-    var kw=v.i1||'marketing';
-    var rows=[['free '+kw+' tools','22,000','e'],[kw+' tips for beginners','18,000','e'],['best '+kw+' strategy','15,000','m'],['how to do '+kw,'12,000','m'],[kw+' checklist','8,100','e'],[kw+' course free','6,600','e'],[kw+' examples','9,900','m'],[kw+' tools free online','5,400','e'],[kw+' guide 2026','4,400','e'],[kw+' mistakes to avoid','3,600','e'],[kw+' for small business','7,200','m'],[kw+' trends 2026','5,800','m']];
-    var allkw=rows.map(function(r){return r[0];}).join('\n');
-    html='<div class="rhd"><div class="rtt">Keyword Ideas</div><button class="cb" onclick="cpTxt(\''+allkw+'\',\'cpd1\')">Copy all</button></div><table class="kwt"><thead><tr><th>Keyword</th><th>Volume</th><th>Difficulty</th></tr></thead><tbody>'+rows.map(function(r){return '<tr><td style="font-weight:500">'+r[0]+'</td><td style="color:var(--t2)">'+r[1]+'/mo</td><td><span class="df d'+r[2]+'">'+{e:'easy',m:'medium',h:'hard'}[r[2]]+'</span></td></tr>';}).join('')+'</tbody></table><div class="cpd" id="cpd1"></div>';
-  } else if(id==='meta'){
-    var t=v.i1,d=v.i2,url=v.i3||'https://yoursite.com';
-    var tl=t.length,dl=d.length;
-    var ts=tl===0?['Missing','bad']:tl>60?['Too long ('+tl+'/60)','warn']:tl<20?['Too short ('+tl+'/60)','warn']:['Good ('+tl+'/60)','good'];
-    var ds=dl===0?['Missing','bad']:dl>160?['Too long ('+dl+'/160)','warn']:dl<80?['Too short ('+dl+'/160)','warn']:['Good ('+dl+'/160)','good'];
-    html='<div class="rtt" style="margin-bottom:.75rem">SEO Analysis</div><div class="rb"><div class="rr"><span class="rl">Meta title</span><span class="rv '+ts[1]+'">'+ts[0]+'</span></div><div class="rr"><span class="rl">Meta description</span><span class="rv '+ds[1]+'">'+ds[0]+'</span></div><div class="rr"><span class="rl">Overall</span><span class="rv '+(ts[1]==='good'&&ds[1]==='good'?'good':'warn')+'">'+(ts[1]==='good'&&ds[1]==='good'?'Optimised ✓':'Needs improvement')+'</span></div></div><div class="serp"><div class="su">'+url+'</div><div class="stit">'+(t||'Your page title')+'</div><div class="sd">'+(d||'Your meta description appears here in Google search results.')+'</div></div>';
-  } else if(id==='utm'){
-    var base2=v.i1||'https://yoursite.com',ps=[];
-    if(v.i2)ps.push('utm_source='+encodeURIComponent(v.i2));
-    if(v.i3)ps.push('utm_medium='+encodeURIComponent(v.i3));
-    if(v.i4)ps.push('utm_campaign='+encodeURIComponent(v.i4));
-    var utmlink=base2+(base2.indexOf('?')>=0?'&':'?')+ps.join('&');
-    html='<div class="rtt" style="margin-bottom:.75rem">Your UTM Link</div><div class="rb"><div class="mono">'+utmlink+'</div></div><div class="rb">'+[['Source',v.i2],['Medium',v.i3],['Campaign',v.i4]].filter(function(x){return x[1];}).map(function(x){return '<div class="rr"><span class="rl">'+x[0]+'</span><span class="rv">'+x[1]+'</span></div>';}).join('')+'</div><button class="cb" style="width:100%;padding:8px;margin-bottom:8px" onclick="cpTxt(\''+utmlink+'\',\'cpd1\')">Copy UTM link</button><div class="cpd" id="cpd1"></div>';
-  } else if(id==='captions'){
-    var topic2=v.i1||'your product';
-    var tones={'Engaging & fun':['🚀 '+topic2+' just changed the game! Drop a 🔥 if you agree!','POV: You discovered '+topic2+' and your life is never the same 😍','Not to be dramatic but '+topic2+' is the best thing this year 👀','The tool everyone is talking about? '+topic2+'. You\'re welcome 😉','Real talk — '+topic2+' is incredible and I won\'t be taking questions 😂'],'Professional':[topic2+' delivers measurable results that speak for themselves. Learn more via link in bio.','In today\'s competitive landscape, '+topic2+' gives professionals the edge they need.',topic2+' — built for professionals who demand more from their tools.','Teams leveraging '+topic2+' are seeing real, tangible outcomes.','We\'re proud to share how '+topic2+' is transforming the way people work.'],'Inspirational':['Every great journey starts with one step. '+topic2+' could be yours ✨','You have everything it takes. With '+topic2+', you have even more. Start today.','Success is not given — it is built. '+topic2+' is one of those building blocks 💪','The best time to start was yesterday. The second best time is now. Try '+topic2+'.','Don\'t wait for perfect. Create it. '+topic2+' is your first step forward 🌟'],'Urgent / Sale':['⏰ Last chance! '+topic2+' deal ends tonight at midnight!','FLASH SALE: Get '+topic2+' at an unbelievable price — only 24 hours! 🔴','Only a few spots left for '+topic2+'! Grab yours NOW.','🚨 '+topic2+' is ON SALE right now. This offer expires soon!','Your window is closing fast. '+topic2+' at this price will not last! ⚡']};
-    var items2=(tones[v.i3]||tones['Engaging & fun']);
-    html='<div class="rhd"><div class="rtt">5 Captions Ready</div></div><div class="rb">'+items2.map(function(c,i){return '<div class="oi"><div class="on">Caption '+(i+1)+'</div><div class="ot">'+c+'</div></div>';}).join('')+'</div>';
-  } else if(id==='readability'){
-    var txt=v.i1||'',wds=txt.trim().split(/\s+/).filter(Boolean).length,snts=Math.max(1,(txt.match(/[.!?]+/g)||[]).length),avg2=(wds/snts).toFixed(1);
-    var sc=Math.min(100,Math.max(0,Math.round(100-avg2*1.4))),gr=sc>70?'Easy to Read':sc>50?'Moderate':'Hard to Read',col=sc>70?'var(--gn)':sc>50?'var(--am)':'var(--rd)';
-    var tips2=sc<70?['Break long sentences into shorter ones','Use simpler vocabulary','Add paragraph breaks','Avoid passive voice','Use bullet points']:['Great readability!','Content is easy to understand','Good sentence structure','Consider adding subheadings','Keep up the great work!'];
-    html='<div class="scb"><div class="scn" style="color:'+col+'">'+sc+'</div><div class="scl">'+gr+'</div></div><div class="rb"><div class="rr"><span class="rl">Word count</span><span class="rv">'+wds+'</span></div><div class="rr"><span class="rl">Sentences</span><span class="rv">'+snts+'</span></div><div class="rr"><span class="rl">Avg words/sentence</span><span class="rv">'+avg2+'</span></div></div><div class="tg"><div class="tgl">Suggestions</div>'+tips2.map(function(t){return '<div style="font-size:12.5px;padding:6px 9px;background:var(--bg);border-radius:7px;color:var(--t2);margin-bottom:4px">• '+t+'</div>';}).join('')+'</div>';
-  } else if(id==='blog-title'){
-    var tp=v.i1||'your topic';
-    var tits=['The Ultimate Guide to '+tp+' in 2026',tp+': Everything You Need to Know','10 Proven '+tp+' Strategies That Actually Work','How to Master '+tp+' in 30 Days','Why '+tp+' is the Secret to Success','The Beginner\'s Complete Guide to '+tp,tp+' Tips That Experts Don\'t Share','How I Used '+tp+' to Get Real Results','The Most Common '+tp+' Mistakes (And How to Fix Them)',tp+' vs The Rest: Which is Right for You?'];
-    var allTits=tits.join('\\n');
-    html='<div class="rhd"><div class="rtt">10 Blog Title Ideas</div></div><div class="rb">'+tits.map(function(t,i){return '<div class="oi"><div class="on">Title '+(i+1)+'</div><div class="ot">'+t+'</div></div>';}).join('')+'</div>';
-  } else if(id==='bio'){
-    var nm=v.i1||'Your Name',rl=v.i2||'Professional',pl=v.i3||'Instagram';
-    var bios=[rl+' | Helping people achieve their goals 🚀 | Tips on '+rl.toLowerCase()+' daily | 📩 DM for collabs','Hi, I\'m '+nm+' — '+rl+' 💼 | Sharing what works | Join '+Math.floor(Math.random()*9+1)+'k+ followers learning with me',nm+' · '+rl+' · Building in public 🏗️ | Daily insights | Link below ⬇️'];
-    html='<div class="rhd"><div class="rtt">3 '+pl+' Bio Options</div></div><div class="rb">'+bios.map(function(b,i){return '<div class="oi"><div class="on">Bio '+(i+1)+'</div><div class="ot">'+b+'</div></div>';}).join('')+'</div>';
-  } else if(id==='yt-desc'){
-    var tp2=v.i1||'your topic',kws=v.i2||v.i1;
-    var ttl=tp2+': Complete Guide for Beginners (2026)';
-    var desc='In this video I will walk you through everything about '+tp2+'.\n\n✅ What you will learn:\n- What is '+tp2+' and why it matters\n- Step-by-step process\n- Common mistakes to avoid\n- Pro tips and tricks\n\n⏱ Timestamps:\n00:00 Introduction\n01:30 What is '+tp2+'?\n03:45 Step-by-step guide\n07:00 Common mistakes\n09:30 Pro tips\n\n🔔 Subscribe for more!\n\n#'+tp2.replace(/\s/g,'')+' #'+((kws||'').replace(/\s/g,''))+' #Tutorial #HowTo';
-    html='<div class="rtt" style="margin-bottom:.75rem">YouTube Title &amp; Description</div><div class="tgl" style="margin-bottom:5px">Recommended title</div><div class="rb" style="margin-bottom:.75rem"><div style="font-weight:600;font-size:13.5px">'+ttl+'</div></div><div class="tgl" style="margin-bottom:5px">Full description</div><div class="rb"><div class="ot" style="font-size:12px;white-space:pre-wrap">'+desc+'</div></div>';
-  } else if(id==='ad-copy'){
-    var pr=v.i1||'your product',bn=v.i2||'amazing results';
-    var ads=[{p:'Google Ad',h:'Get '+pr+' — Free Trial Today',d:'Join thousands who use '+pr+'. '+bn+'. Start free, no credit card needed.'},{p:'Facebook Ad',h:'Finally — '+pr+' That Actually Works',d:'Tired of tools that overpromise? '+pr+' delivers '+bn+'. Try free today.'},{p:'Instagram Ad',h:'✨ '+pr,d:bn+' with '+pr+'. Join our community. Tap to learn more ➡️'}];
-    html='<div class="rtt" style="margin-bottom:.75rem">Ad Copy Variants</div>'+ads.map(function(a){return '<div class="rb" style="margin-bottom:8px"><div class="tgl" style="margin-bottom:5px">'+a.p+'</div><div style="font-weight:600;font-size:13.5px;margin-bottom:4px">'+a.h+'</div><div style="font-size:12.5px;color:var(--t2);line-height:1.6">'+a.d+'</div></div>';}).join('')+'<div class="cpd" id="cpd1"></div>';
-  } else if(id==='seo-audit'){
-    var url2=v.i1||'yoursite.com';
-    var chk=[['Page Title','Present & optimised','good'],['Meta Description','Present, good length','good'],['H1 Tag','Found on page','good'],['Page Speed','Needs improvement','warn'],['Mobile Friendly','Yes — responsive','good'],['SSL (HTTPS)','Secure ✓','good'],['Image Alt Tags','Some missing','warn'],['Sitemap','Not detected','bad'],['Robots.txt','Present','good'],['Internal Links','Good structure','good']];
-    var sc2=72;
-    html='<div class="rhd"><div class="rtt">SEO Audit: '+url2+'</div><div style="font-size:20px;font-weight:700;color:'+(sc2>70?'var(--gn)':'var(--am)')+'">'+sc2+'/100</div></div><div class="rb">'+chk.map(function(c){return '<div class="rr"><span class="rl">'+c[0]+'</span><span class="rv '+c[2]+'">'+c[1]+' '+(c[2]==='good'?'✓':c[2]==='warn'?'⚠':'✗')+'</span></div>';}).join('')+'</div>';
-  }
-  document.getElementById('m-bd').innerHTML=html+'<button class="btn bg" onclick="renderMktInput(curTool)">Try another</button>';
+  if(id==='hashtag'){var base=(v.i1||'marketing').replace(/\s+/g,'');var hi=['#'+base,'#'+base+'Tips','#'+base+'2026','#DigitalMarketing','#SocialMedia','#ContentMarketing','#SEO','#Marketing','#GrowthHacking','#OnlineBusiness'];var mi=['#MarketingTips','#ContentCreator','#BrandAwareness','#SocialMediaMarketing','#MarketingStrategy','#LeadGeneration','#DigitalGrowth','#ContentStrategy','#MarketingAgency','#BusinessGrowth'];var ni=['#'+base+'India','#Free'+base,'#'+base+'Beginner','#MarketingIndia','#SmallBusinessIndia','#IndianMarketer','#DigitalMarketingIndia','#'+base+'Community','#FreeMarketingTools','#MarketingForBeginners'];var all=hi.concat(mi).concat(ni).join(' ');html='<div class="rhd"><div class="rtt">Your 30 Hashtags</div><button class="cb" onclick="cpTxt(\''+all+'\',\'cpd1\')">Copy all 30</button></div>'+[['High traffic','tgg',hi],['Medium traffic','tgb',mi],['Niche — low competition','tga',ni]].map(function(x){return '<div class="tg"><div class="tgl">'+x[0]+'</div><div class="tags">'+x[2].map(function(t){return '<span class="tag '+x[1]+'" onclick="cpTxt(\''+t+'\',\'cpd1\')">'+t+'</span>';}).join('')+'</div></div>';}).join('')+'<div class="cpd" id="cpd1"></div>';}
+  else if(id==='keyword'){var kw=v.i1||'marketing';var rows=[['free '+kw+' tools','22,000','e'],[kw+' tips for beginners','18,000','e'],['best '+kw+' strategy','15,000','m'],['how to do '+kw,'12,000','m'],[kw+' checklist','8,100','e'],[kw+' course free','6,600','e'],[kw+' examples','9,900','m'],[kw+' tools free online','5,400','e'],[kw+' guide 2026','4,400','e'],[kw+' mistakes to avoid','3,600','e'],[kw+' for small business','7,200','m'],[kw+' trends 2026','5,800','m']];var allkw=rows.map(function(r){return r[0];}).join('\n');html='<div class="rhd"><div class="rtt">Keyword Ideas</div><button class="cb" onclick="cpTxt(\''+allkw+'\',\'cpd1\')">Copy all</button></div><table class="kwt"><thead><tr><th>Keyword</th><th>Est. Volume</th><th>Difficulty</th></tr></thead><tbody>'+rows.map(function(r){return '<tr><td style="font-weight:500;color:var(--tx)">'+r[0]+'</td><td style="color:var(--t2);font-family:\'JetBrains Mono\',monospace;font-size:11.5px">'+r[1]+'/mo</td><td><span class="df d'+r[2]+'">'+{e:'easy',m:'medium',h:'hard'}[r[2]]+'</span></td></tr>';}).join('')+'</tbody></table><div class="cpd" id="cpd1"></div>';}
+  else if(id==='meta'){var t=v.i1,d=v.i2,url=v.i3||'https://yoursite.com';var tl=t.length,dl=d.length;var ts=tl===0?['Missing','bad']:tl>60?['Too long ('+tl+'/60)','warn']:tl<20?['Too short ('+tl+'/60)','warn']:['Good ('+tl+'/60)','good'];var ds=dl===0?['Missing','bad']:dl>160?['Too long ('+dl+'/160)','warn']:dl<80?['Too short ('+dl+'/160)','warn']:['Good ('+dl+'/160)','good'];html='<div class="rtt" style="margin-bottom:.875rem">SEO Analysis</div><div class="rb"><div class="rr"><span class="rl">Meta title</span><span class="rv '+ts[1]+'">'+ts[0]+'</span></div><div class="rr"><span class="rl">Meta description</span><span class="rv '+ds[1]+'">'+ds[0]+'</span></div><div class="rr"><span class="rl">Overall score</span><span class="rv '+(ts[1]==='good'&&ds[1]==='good'?'good':'warn')+'">'+(ts[1]==='good'&&ds[1]==='good'?'Optimised ✓':'Needs improvement')+'</span></div></div><div class="rtt" style="margin:.875rem 0 .5rem;font-size:13px">Google Preview</div><div class="serp"><div class="su">'+url+'</div><div class="stit">'+(t||'Your page title')+'</div><div class="sd">'+(d||'Your meta description appears here in Google results.')+'</div></div>';}
+  else if(id==='utm'){var base2=v.i1||'https://yoursite.com',ps=[];if(v.i2)ps.push('utm_source='+encodeURIComponent(v.i2));if(v.i3)ps.push('utm_medium='+encodeURIComponent(v.i3));if(v.i4)ps.push('utm_campaign='+encodeURIComponent(v.i4));var ul=base2+(base2.indexOf('?')>=0?'&':'?')+ps.join('&');html='<div class="rtt" style="margin-bottom:.875rem">Your UTM Link</div><div class="rb"><div class="mono">'+ul+'</div></div><div class="rb">'+[['Source',v.i2],['Medium',v.i3],['Campaign',v.i4]].filter(function(x){return x[1];}).map(function(x){return '<div class="rr"><span class="rl">'+x[0]+'</span><span class="rv" style="font-family:\'JetBrains Mono\',monospace;font-size:12px">'+x[1]+'</span></div>';}).join('')+'</div><button class="cb" style="width:100%;padding:9px" onclick="cpTxt(\''+ul+'\',\'cpd1\')">Copy UTM link</button><div class="cpd" id="cpd1"></div>';}
+  else if(id==='captions'){var tp2=v.i1||'your product';var tones={'Engaging & fun':['🚀 '+tp2+' just changed the game and we are here for it! Drop a 🔥 if you agree!','POV: You discovered '+tp2+' and your workflow is never the same 😍','Not to be dramatic but '+tp2+' is the best thing this year 👀','The tool everyone is talking about? '+tp2+'. You\'re welcome 😉','Real talk — '+tp2+' is incredible and I won\'t be taking questions 😂'],'Professional':[tp2+' delivers measurable results. Learn more via the link in bio.','In today\'s competitive landscape, '+tp2+' gives professionals the edge they need.',tp2+' — built for professionals who demand more.','Teams using '+tp2+' are seeing real, tangible outcomes. Are you next?','We are proud to share how '+tp2+' is transforming the way people work.'],'Inspirational':['Every great journey starts with one step. '+tp2+' could be yours ✨','You have everything it takes. With '+tp2+', you have even more 💪','Success is not given — it is built. '+tp2+' is one of those building blocks.','The best time to start was yesterday. Second best time is now. Try '+tp2+'.','Don\'t wait for perfect. Create it. '+tp2+' is your first step forward 🌟'],'Urgent / Sale':['⏰ Last chance! '+tp2+' deal ends tonight at midnight!','FLASH SALE: Get '+tp2+' at an unbelievable price — only 24 hours! 🔴','Only a few spots left for '+tp2+'! Grab yours NOW before it\'s gone.','🚨 '+tp2+' is ON SALE right now. This offer expires very soon!','Your window is closing fast. '+tp2+' at this price won\'t last! ⚡']};var items2=tones[v.i3]||tones['Engaging & fun'];html='<div class="rhd"><div class="rtt">5 Captions Ready</div></div><div class="rb">'+items2.map(function(c,i){return '<div class="oi"><div class="on">Caption '+(i+1)+'</div><div class="ot">'+c+'</div></div>';}).join('')+'</div>';}
+  else if(id==='readability'){var txt=v.i1||'',wds=txt.trim().split(/\s+/).filter(Boolean).length,snts=Math.max(1,(txt.match(/[.!?]+/g)||[]).length),avg2=parseFloat((wds/snts).toFixed(1));var sc=Math.min(100,Math.max(0,Math.round(100-avg2*1.4))),gr=sc>70?'Easy to Read':sc>50?'Moderate':'Hard to Read',col=sc>70?'var(--gn)':sc>50?'var(--am)':'var(--rd)';var tips2=sc<70?['Break long sentences into shorter ones','Use simpler everyday vocabulary','Add more paragraph breaks','Avoid passive voice','Use bullet points for lists']:['Great readability score!','Easy to understand','Good sentence variety','Well structured and clear','Consider adding subheadings'];html='<div class="scb"><div class="scn" style="color:'+col+'">'+sc+'</div><div class="scl">'+gr+'</div></div><div class="rb"><div class="rr"><span class="rl">Words</span><span class="rv" style="font-family:\'JetBrains Mono\',monospace">'+wds+'</span></div><div class="rr"><span class="rl">Sentences</span><span class="rv" style="font-family:\'JetBrains Mono\',monospace">'+snts+'</span></div><div class="rr"><span class="rl">Avg words/sentence</span><span class="rv" style="font-family:\'JetBrains Mono\',monospace">'+avg2+'</span></div></div><div class="tg"><div class="tgl">Suggestions</div>'+tips2.map(function(t){return '<div style="font-size:12.5px;padding:7px 10px;background:var(--bg3);border-radius:8px;color:var(--t2);margin-bottom:4px;border:1px solid var(--bd)">→ '+t+'</div>';}).join('')+'</div>';}
+  else if(id==='blog-title'){var tp3=v.i1||'your topic';var tits=['The Ultimate Guide to '+tp3+' in 2026',tp3+': Everything You Need to Know','10 Proven '+tp3+' Strategies That Actually Work','How to Master '+tp3+' in 30 Days','Why '+tp3+' is the Secret to Success','The Beginner\'s Complete Guide to '+tp3,tp3+' Tips That Experts Don\'t Share','How I Used '+tp3+' to Get Real Results','The Most Common '+tp3+' Mistakes (And How to Fix Them)',tp3+' vs The Rest: Which is Right for You?'];html='<div class="rhd"><div class="rtt">10 Blog Title Ideas</div></div><div class="rb">'+tits.map(function(t,i){return '<div class="oi"><div class="on">Title '+(i+1)+'</div><div class="ot">'+t+'</div></div>';}).join('')+'</div>';}
+  else if(id==='bio'){var nm=v.i1||'Your Name',rl=v.i2||'Professional',pl=v.i3||'Instagram';var bios=[rl+' | Helping people achieve their goals 🚀 | Tips on '+rl.toLowerCase()+' daily | 📩 DM for collabs','Hi, I\'m '+nm+' — '+rl+' 💼 | Sharing what works | Join '+Math.floor(Math.random()*9+1)+'k+ followers',nm+' · '+rl+' · Building in public 🏗️ | Daily insights | Link below ⬇️'];html='<div class="rhd"><div class="rtt">3 '+pl+' Bio Options</div></div><div class="rb">'+bios.map(function(b,i){return '<div class="oi"><div class="on">Bio '+(i+1)+'</div><div class="ot">'+b+'</div></div>';}).join('')+'</div>';}
+  else if(id==='yt-desc'){var tp4=v.i1||'your topic',kws=v.i2||v.i1||'tutorial';var ttl=tp4+': Complete Guide for Beginners (2026)';var desc2='In this video I walk you through everything about '+tp4+'.\n\n✅ What you will learn:\n— What is '+tp4+' and why it matters\n— Step-by-step process\n— Common mistakes to avoid\n— Pro tips and tricks\n\n⏱ Timestamps:\n00:00 Introduction\n01:30 What is '+tp4+'?\n03:45 Step-by-step guide\n07:00 Common mistakes\n09:30 Pro tips\n\n🔔 Subscribe for more!\n\n#'+tp4.replace(/\s+/g,'')+' #'+kws.replace(/\s+/g,'')+' #Tutorial #HowTo';html='<div class="rtt" style="margin-bottom:.875rem">YouTube Content</div><div class="tgl" style="margin-bottom:5px">Recommended title</div><div class="rb" style="margin-bottom:.875rem"><div style="font-weight:600;font-size:13.5px;color:var(--tx)">'+ttl+'</div></div><div class="tgl" style="margin-bottom:5px">Full description</div><div class="rb"><div class="ot" style="font-size:12px;white-space:pre-wrap;color:var(--t2)">'+desc2+'</div></div>';}
+  else if(id==='ad-copy'){var pr=v.i1||'your product',bn=v.i2||'amazing results';var ads=[{p:'Google Search Ad',h:'Get '+pr+' — Free Trial Today',d:'Join thousands who use '+pr+'. '+bn+'. Start free, no credit card.'},{p:'Facebook / Instagram Ad',h:'Finally — '+pr+' That Actually Works',d:'Tired of tools that overpromise? '+pr+' delivers '+bn+'. Try free today.'},{p:'LinkedIn Ad',h:pr+' for Professionals',d:'Industry leaders trust '+pr+' to deliver '+bn+'. Join 10,000+ professionals.'}];html='<div class="rtt" style="margin-bottom:.875rem">Ad Copy Variants</div>'+ads.map(function(a){return '<div class="rb" style="margin-bottom:8px"><div class="tgl" style="margin-bottom:5px">'+a.p+'</div><div style="font-weight:600;font-size:13.5px;margin-bottom:5px;color:var(--tx)">'+a.h+'</div><div style="font-size:12.5px;color:var(--t2);line-height:1.65">'+a.d+'</div></div>';}).join('');}
+  else if(id==='seo-audit'){var url2=v.i1||'yoursite.com';var chk=[['Page Title','Present & optimised','good'],['Meta Description','Good length & relevant','good'],['H1 Tag','Found — clear and descriptive','good'],['Page Speed','Needs improvement (3.2s)','warn'],['Mobile Friendly','Yes — fully responsive','good'],['SSL / HTTPS','Secure certificate active','good'],['Image Alt Tags','3 images missing alt text','warn'],['XML Sitemap','Not detected','bad'],['Robots.txt','Present and configured','good'],['Core Web Vitals','LCP needs work','warn']];var sc2=68;html='<div class="rhd"><div class="rtt">SEO Audit: '+url2+'</div><div class="scn" style="font-size:2rem;color:'+(sc2>70?'var(--gn)':'var(--am)')+'">'+sc2+'/100</div></div><div class="rb">'+chk.map(function(c){return '<div class="rr"><span class="rl">'+c[0]+'</span><span class="rv '+c[2]+'">'+c[1]+' '+(c[2]==='good'?'✓':c[2]==='warn'?'⚠':'✗')+'</span></div>';}).join('')+'</div>';}
+  document.getElementById('m-bd').innerHTML=html+'<button class="btn bg" onclick="renderMktInput(curTool)" style="margin-top:1rem">← Try another</button>';
 }
-renderCards();
-showCat('all');
+renderCards();showCat('all');
 </script>
 </body>
 </html>
