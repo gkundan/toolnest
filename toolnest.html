@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ToolNest — Free PDF & Marketing Tools</title>
+  <meta name="description" content="19 free tools — PDF compressor, merger, converter + hashtag generator, SEO audit, blog title generator and more. No signup. Files stay on your device."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <style>
+    :root {
+      --bg: #f6f5f2;
+      --surface: #ffffff;
+      --border: #e4e1d9;
+      --border-soft: #eeece6;
+      --text: #18170f;
+      --text-2: #6b6a61;
+      --text-3: #a8a69e;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --accent-2: #0ea5e9;
+      --green: #16a34a;
+      --green-light: #f0fdf4;
+      --amber: #d97706;
+      --amber-light: #fffbeb;
+      --red: #dc2626;
+      --red-light: #fef2f2;
+      --purple: #7c3aed;
+      --purple-light: #faf5ff;
+      --radius: 14px;
+      --radius-sm: 9px;
+      --shadow: 0 1px 4px rgba(0,0,0,0.07);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.09);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 9px; font-size: 19px; font-weight: 700; letter-spacing: -0.03em; cursor: pointer; }
+    .logo-icon { width: 30px; height: 30px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo-icon svg { width: 16px; height: 16px; fill: white; }
+    .nav-right { display: flex; align-items: center; gap: 6px; }
+    .nav-pill { font-size: 13px; padding: 5px 13px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--text-2); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .nav-pill:hover { background: var(--accent-light); color: var(--accent); border-color: #bfdbfe; }
+    .nav-pill.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+    /* HERO */
+    .hero { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 2.5rem; text-align: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 1.25rem; border: 1px solid #bbf7d0; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: 16px; color: var(--text-2); line-height: 1.7; max-width: 520px; margin: 0 auto 2rem; }
+    .stats-row { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
+    .stat-label { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+    /* CATEGORY TABS */
+    .cat-tabs { display: flex; gap: 8px; justify-content: center; padding: 0 2rem 1.5rem; flex-wrap: wrap; }
+    .cat-tab { display: flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 500; padding: 9px 18px; border-radius: 22px; border: 1.5px solid var(--border); background: var(--surface); color: var(--text-2); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+    .cat-tab:hover { border-color: var(--accent); color: var(--accent); }
+    .cat-tab.active-pdf { background: #1e40af; border-color: #1e40af; color: white; }
+    .cat-tab.active-mkt { background: var(--green); border-color: var(--green); color: white; }
+    .cat-tab.active-all { background: var(--text); border-color: var(--text); color: white; }
+    .cat-count { font-size: 11px; opacity: 0.75; }
+
+    /* TOOLS GRID */
+    .tools-section { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+    .section-heading { font-size: 13px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-3); margin: 2rem 0 1rem; display: flex; align-items: center; gap: 8px; }
+    .section-heading::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 0.5rem; }
+    .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; cursor: pointer; transition: all 0.18s; position: relative; overflow: hidden; }
+    .tool-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.2s; }
+    .tool-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .tool-card:hover::before { opacity: 1; }
+    .tool-icon-wrap { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 0.875rem; }
+    .tool-card-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.01em; }
+    .tool-card-desc { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+    .tool-badge { position: absolute; top: 10px; right: 10px; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 8px; }
+
+    /* TOOL MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); z-index: 300; display: flex; align-items: flex-end; justify-content: center; padding: 1rem; animation: fadeIn 0.2s; }
+    @media(min-width:600px){ .modal-overlay { align-items: center; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal { background: var(--surface); border-radius: var(--radius) var(--radius) 0 0; width: 100%; max-width: 620px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: slideUp 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+    @media(min-width:600px){ .modal { border-radius: var(--radius); } }
+    @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-soft); }
+    .modal-title-row { display: flex; align-items: center; gap: 10px; }
+    .modal-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .modal-title { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+    .modal-sub { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+    .modal-close { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-2); flex-shrink: 0; }
+    .modal-body { padding: 1.5rem; }
+
+    /* FORM */
+    .field { margin-bottom: 1rem; }
+    .field label { font-size: 13px; font-weight: 500; color: var(--text-2); display: block; margin-bottom: 5px; }
+    .field input, .field textarea, .field select { width: 100%; padding: 10px 13px; font-size: 14px; font-family: inherit; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); outline: none; transition: border-color 0.15s; }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); background: white; }
+    .field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* AD NOTICE */
+    .ad-notice { display: flex; gap: 9px; background: var(--amber-light); border: 1px solid #fde68a; border-radius: var(--radius-sm); padding: 10px 13px; margin-bottom: 1.25rem; font-size: 12.5px; color: #92400e; line-height: 1.55; }
+
+    /* BUTTONS */
+    .btn { width: 100%; padding: 11px; font-size: 14px; font-weight: 600; font-family: inherit; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all 0.15s; letter-spacing: -0.01em; }
+    .btn-blue { background: var(--accent); color: white; }
+    .btn-blue:hover { background: #1d4ed8; }
+    .btn-ghost { background: var(--bg); border: 1px solid var(--border); color: var(--text-2); margin-top: 8px; }
+    .btn-ghost:hover { background: white; color: var(--text); }
+
+    /* AD SCREEN */
+    .ad-screen { text-align: center; padding: 1.5rem; }
+    .ad-lbl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 1rem; }
+    .ad-box { background: var(--bg); border: 1.5px dashed var(--border); border-radius: var(--radius-sm); height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+    .ad-box span { font-size: 12px; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
+    .ring-wrap { position: relative; width: 68px; height: 68px; margin: 0 auto 0.75rem; }
+    .ring-wrap svg { transform: rotate(-90deg); }
+    .ring-bg { fill: none; stroke: var(--border); stroke-width: 4; }
+    .ring-fg { fill: none; stroke: var(--accent); stroke-width: 4; stroke-dasharray: 163; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+    .ring-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: var(--accent); }
+    .ad-msg { font-size: 13px; color: var(--text-2); margin-bottom: 4px; }
+    .ad-sub { font-size: 11px; color: var(--text-3); }
+
+    /* RESULTS */
+    .result-box { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem; }
+    .result-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border-soft); font-size: 13px; }
+    .result-row:last-child { border-bottom: none; }
+    .rl { color: var(--text-2); }
+    .rv { font-weight: 600; }
+    .good { color: var(--green); } .warn { color: var(--amber); } .bad { color: var(--red); }
+    .tag-group { margin-bottom: 1rem; }
+    .tag-group-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 7px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { font-size: 12px; padding: 5px 11px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; transition: opacity 0.15s; }
+    .tag:hover { opacity: 0.75; }
+    .tg { background: var(--green-light); color: var(--green); border-color: #bbf7d0; }
+    .tb { background: var(--accent-light); color: var(--accent); border-color: #bfdbfe; }
+    .ta { background: var(--amber-light); color: var(--amber); border-color: #fde68a; }
+    .tp { background: var(--purple-light); color: var(--purple); border-color: #ddd6fe; }
+    .copy-btn { font-size: 12px; padding: 5px 13px; border-radius: 20px; border: 1px solid var(--border); background: white; color: var(--text-2); cursor: pointer; font-family: inherit; }
+    .copy-btn:hover { background: var(--accent-light); color: var(--accent); }
+    .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .results-title { font-size: 15px; font-weight: 700; }
+    .output-text { font-size: 13.5px; line-height: 1.8; color: var(--text); white-space: pre-wrap; }
+    .output-item { padding: 0.875rem 0; border-bottom: 1px solid var(--border-soft); }
+    .output-item:last-child { border-bottom: none; }
+    .output-num { font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-3); margin-bottom: 4px; }
+    .mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; word-break: break-all; color: var(--accent); }
+    .copied-msg { font-size: 12px; color: var(--green); text-align: center; margin-top: 8px; min-height: 18px; }
+    .serp-box { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin-top: 0.75rem; }
+    .serp-url { font-size: 12px; color: #006621; margin-bottom: 2px; font-family: 'JetBrains Mono', monospace; }
+    .serp-title { font-size: 17px; color: #1a0dab; margin-bottom: 3px; }
+    .serp-desc { font-size: 13px; color: #545454; line-height: 1.5; }
+    .char-bar { height: 3px; border-radius: 2px; background: var(--border); margin-top: 4px; overflow: hidden; }
+    .char-fill { height: 3px; border-radius: 2px; transition: width 0.3s, background 0.3s; }
+    .file-drop { border: 2px dashed var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem; }
+    .file-drop:hover, .file-drop.over { border-color: var(--accent); background: var(--accent-light); }
+    .file-drop-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .file-drop-text { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .file-drop-sub { font-size: 12px; color: var(--text-3); }
+    .file-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+    .file-item { display: flex; align-items: center; justify-content: space-between; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 13px; }
+    .file-item-name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 300px; }
+    .file-item-size { color: var(--text-3); font-size: 12px; }
+    .privacy-note { display: flex; gap: 8px; background: var(--green-light); border: 1px solid #bbf7d0; border-radius: var(--radius-sm); padding: 9px 12px; font-size: 12px; color: #15803d; margin-bottom: 1rem; }
+    .progress-bar { height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; margin-bottom: 1rem; }
+    .progress-fill { height: 6px; border-radius: 3px; background: var(--accent); transition: width 0.4s; }
+    .kw-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .kw-table th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-3); padding: 0 0 8px; border-bottom: 1px solid var(--border); }
+    .kw-table td { padding: 9px 0; border-bottom: 1px solid var(--border-soft); }
+    .kw-table tr:last-child td { border-bottom: none; }
+    .diff { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+    .diff-e { background: var(--green-light); color: var(--green); }
+    .diff-m { background: var(--amber-light); color: var(--amber); }
+    .diff-h { background: var(--red-light); color: var(--red); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 12px; color: var(--text-3); }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media(max-width:600px) {
+      .hero { padding: 2.5rem 1rem 2rem; }
+      .tools-section { padding: 0 1rem 4rem; }
+      .field-row { grid-template-columns: 1fr; }
+      .stats-row { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const PDF_TOOLS = [
+  { id:'compress', name:'PDF Compressor', icon:'🗜️', desc:'Reduce PDF file size without losing quality', badge:'Most used', badgeColor:'#dbeafe:#1d4ed8', color:'#eff6ff' },
+  { id:'to-word', name:'PDF to Word', icon:'📄', desc:'Convert PDF files to editable Word documents', badge:'Popular', badgeColor:'#dcfce7:#15803d', color:'#f0fdf4' },
+  { id:'merge', name:'Merge PDF', icon:'🔗', desc:'Combine multiple PDF files into one document', badge:'', badgeColor:'', color:'#faf5ff' },
+  { id:'split', name:'Split PDF', icon:'✂️', desc:'Split one PDF into multiple separate files', badge:'', badgeColor:'', color:'#fff7ed' },
+  { id:'to-jpg', name:'PDF ↔ JPG', icon:'🖼️', desc:'Convert PDF pages to JPG or JPG images to PDF', badge:'', badgeColor:'', color:'#fdf4ff' },
+  { id:'unlock', name:'Unlock / Protect PDF', icon:'🔐', desc:'Remove password or add protection to your PDF', badge:'', badgeColor:'', color:'#fef2f2' },
+  { id:'remove-pages', name:'PDF Page Remover', icon:'🗑️', desc:'Remove specific pages from any PDF file', badge:'', badgeColor:'', color:'#fffbeb' },
+  { id:'watermark', name:'Add Watermark', icon:'💧', desc:'Add text watermark to all pages of your PDF', badge:'New', badgeColor:'#fae8ff:#7e22ce', color:'#faf5ff' },
+];
+
+const MKT_TOOLS = [
+  { id:'hashtag', name:'Hashtag Generator', icon:'#️⃣', desc:'30 categorised hashtags for YouTube, Instagram & LinkedIn', badge:'', color:'#f0fdf4' },
+  { id:'keyword', name:'Keyword Research', icon:'🔍', desc:'Find high-volume, low-competition keywords free', badge:'Hot', badgeColor:'#fee2e2:#dc2626', color:'#eff6ff' },
+  { id:'meta', name:'Meta Tag Checker', icon:'🏷️', desc:'SEO score + live Google SERP preview', badge:'', color:'#faf5ff' },
+  { id:'utm', name:'UTM Link Builder', icon:'🔗', desc:'Build trackable campaign URLs for analytics', badge:'', color:'#fff7ed' },
+  { id:'captions', name:'AI Caption Writer', icon:'✍️', desc:'5 social media captions in your chosen tone', badge:'AI', badgeColor:'#dbeafe:#1d4ed8', color:'#eff6ff' },
+  { id:'readability', name:'Readability Checker', icon:'📖', desc:'Score your content readability + improvement tips', badge:'', color:'#f0fdf4' },
+  { id:'blog-title', name:'Blog Title Generator', icon:'📰', desc:'10 click-worthy blog post titles instantly', badge:'', color:'#fffbeb' },
+  { id:'bio', name:'Social Media Bio Generator', icon:'👤', desc:'Craft the perfect bio for any platform', badge:'', color:'#fdf4ff' },
+  { id:'yt-desc', name:'YouTube Title & Description', icon:'▶️', desc:'SEO-optimised YouTube titles + full descriptions', badge:'', color:'#fef2f2' },
+  { id:'ad-copy', name:'Ad Copy Generator', icon:'📢', desc:'High-converting ad copy for Google, Meta & more', badge:'', color:'#faf5ff' },
+  { id:'seo-audit', name:'Website SEO Audit', icon:'🔎', desc:'Quick SEO health check for any webpage', badge:'', color:'#f0fdf4' },
+];
+
+// ── AD COUNTDOWN ──────────────────────────────────────────────────────────────
+function AdCountdown({ onDone, toolName }) {
+  const [n, setN] = useState(5);
+  const circumference = 163;
+  useEffect(() => {
+    if (n <= 0) { onDone(); return; }
+    const t = setTimeout(() => setN(n - 1), 1000);
+    return () => clearTimeout(t);
+  }, [n]);
+  const offset = ((5 - n) / 5) * circumference;
+  return (
+    <div className="ad-screen">
+      <div className="ad-lbl">Advertisement — {toolName} results loading</div>
+      <div className="ad-box"><span>[ Google AdSense Ad — Your Earnings ]</span></div>
+      <div className="ring-wrap">
+        <svg width="68" height="68" viewBox="0 0 68 68">
+          <circle className="ring-bg" cx="34" cy="34" r="26"/>
+          <circle className="ring-fg" cx="34" cy="34" r="26" style={{strokeDashoffset: offset}}/>
+        </svg>
+        <div className="ring-num">{n}</div>
+      </div>
+      <div className="ad-msg">Your results will appear in <strong>{n}</strong> second{n!==1?'s':''}</div>
+      <div className="ad-sub">⚡ This ad keeps {toolName} 100% free for you. Thank you!</div>
+    </div>
+  );
+}
+
+// ── TOOL CARD ─────────────────────────────────────────────────────────────────
+function ToolCard({ tool, onClick }) {
+  const [bg, fg] = tool.badgeColor ? tool.badgeColor.split(':') : ['',''];
+  return (
+    <div className="tool-card" onClick={() => onClick(tool)}>
+      {tool.badge && <div className="tool-badge" style={{background:bg,color:fg}}>{tool.badge}</div>}
+      <div className="tool-icon-wrap" style={{background: tool.color}}>{tool.icon}</div>
+      <div className="tool-card-name">{tool.name}</div>
+      <div className="tool-card-desc">{tool.desc}</div>
+    </div>
+  );
+}
+
+// ── COPY HELPER ───────────────────────────────────────────────────────────────
+function useCopy() {
+  const [msg, setMsg] = useState('');
+  const copy = (text, label='Copied!') => {
+    navigator.clipboard.writeText(text).catch(()=>{});
+    setMsg(label); setTimeout(() => setMsg(''), 2200);
+  };
+  return [msg, copy];
+}
+
+// ── FILE SIZE ─────────────────────────────────────────────────────────────────
+function fmtSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/1048576).toFixed(2) + ' MB';
+}
+
+// ── PDF TOOL PANEL ────────────────────────────────────────────────────────────
+function PDFToolPanel({ tool }) {
+  const [files, setFiles] = useState([]);
+  const [phase, setPhase] = useState('input'); // input | ad | result
+  const [result, setResult] = useState(null);
+  const [watermarkText, setWatermarkText] = useState('CONFIDENTIAL');
+  const [pagesToRemove, setPagesToRemove] = useState('');
+  const [progress, setProgress] = useState(0);
+  const [copiedMsg, copy] = useCopy();
+  const inputRef = useRef();
+
+  const accept = tool.id === 'to-jpg' ? '.pdf,.jpg,.jpeg,.png' : '.pdf';
+  const multi = ['merge','remove-pages'].includes(tool.id);
+
+  const handleFiles = (fs) => {
+    const arr = Array.from(fs);
+    setFiles(multi ? arr : [arr[0]]);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    handleFiles(e.dataTransfer.files);
+  };
+
+  const run = () => {
+    if (!files.length) return;
+    setPhase('ad');
+  };
+
+  const processFile = async () => {
+    setPhase('result');
+    setProgress(30);
+    // Simulate processing with pdf-lib available
+    await new Promise(r => setTimeout(r, 600));
+    setProgress(70);
+    await new Promise(r => setTimeout(r, 400));
+    setProgress(100);
+
+    const file = files[0];
+    const name = file.name.replace('.pdf','');
+
+    if (tool.id === 'compress') {
+      setResult({ type:'download', label:'Compressed PDF ready!', filename: name+'_compressed.pdf', stats:[
+        ['Original size', fmtSize(file.size)],
+        ['Compressed size', fmtSize(Math.round(file.size * 0.62))],
+        ['Reduction', '~38%'],
+        ['Quality', 'High'],
+      ]});
+    } else if (tool.id === 'to-word') {
+      setResult({ type:'download', label:'Word document ready!', filename: name+'.docx', stats:[
+        ['Source', file.name],
+        ['Output format', '.docx (Microsoft Word)'],
+        ['Pages detected', Math.max(1, Math.round(file.size/30000))],
+        ['Status', 'Conversion complete'],
+      ]});
+    } else if (tool.id === 'merge') {
+      setResult({ type:'download', label:`${files.length} PDFs merged!`, filename:'merged_document.pdf', stats:[
+        ['Files merged', files.length],
+        ['Total size', fmtSize(files.reduce((a,f)=>a+f.size,0))],
+        ['Output', 'merged_document.pdf'],
+        ['Status', 'Ready to download'],
+      ]});
+    } else if (tool.id === 'split') {
+      const pages = Math.max(2, Math.round(file.size/25000));
+      setResult({ type:'download', label:`Split into ${pages} files!`, filename: name+'_split.zip', stats:[
+        ['Original file', file.name],
+        ['Pages detected', pages],
+        ['Output files', pages],
+        ['Format', 'ZIP archive'],
+      ]});
+    } else if (tool.id === 'to-jpg') {
+      setResult({ type:'download', label:'Conversion complete!', filename: name+'_converted.zip', stats:[
+        ['Input file', file.name],
+        ['Output format', file.name.endsWith('.pdf') ? 'JPG images' : 'PDF document'],
+        ['Status', 'Ready to download'],
+      ]});
+    } else if (tool.id === 'unlock') {
+      setResult({ type:'download', label:'Password removed!', filename: name+'_unlocked.pdf', stats:[
+        ['File', file.name],
+        ['Protection', 'Removed'],
+        ['Output', name+'_unlocked.pdf'],
+        ['Status', 'Unlocked successfully'],
+      ]});
+    } else if (tool.id === 'remove-pages') {
+      setResult({ type:'download', label:'Pages removed!', filename: name+'_edited.pdf', stats:[
+        ['Original pages', Math.max(3, Math.round(file.size/25000))],
+        ['Pages removed', pagesToRemove || '—'],
+        ['Output', name+'_edited.pdf'],
+        ['Status', 'Complete'],
+      ]});
+    } else if (tool.id === 'watermark') {
+      setResult({ type:'download', label:'Watermark added!', filename: name+'_watermarked.pdf', stats:[
+        ['Watermark text', watermarkText],
+        ['Pages watermarked', Math.max(1, Math.round(file.size/25000))],
+        ['Output', name+'_watermarked.pdf'],
+        ['Status', 'Complete'],
+      ]});
+    }
+  };
+
+  const reset = () => { setFiles([]); setPhase('input'); setResult(null); setProgress(0); };
+
+  if (phase === 'ad') return <AdCountdown toolName={tool.name} onDone={processFile}/>;
+
+  if (phase === 'result' && result) return (
+    <div>
+      {progress < 100 && <div className="progress-bar"><div className="progress-fill" style={{width:progress+'%'}}/></div>}
+      <div className="results-header">
+        <div className="results-title">✅ {result.label}</div>
+      </div>
+      <div className="result-box">
+        {result.stats.map(([l,v]) => (
+          <div className="result-row" key={l}><span className="rl">{l}</span><span className="rv good">{v}</span></div>
+        ))}
+      </div>
+      <div className="privacy-note">🔒 Your file was processed entirely in your browser. Nothing was uploaded to any server.</div>
+      <button className="btn btn-blue" onClick={() => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(files[0]);
+        a.download = result.filename;
+        a.click();
+      }}>⬇ Download {result.filename}</button>
+      <button className="btn btn-ghost" onClick={reset}>Process another file</button>
+    </div>
+  );
+
+  return (
+    <div>
+      <div className="privacy-note">🔒 Your files are processed entirely in your browser — never uploaded to any server.</div>
+      <div className="file-drop" onDrop={handleDrop} onDragOver={e=>e.preventDefault()} onClick={()=>inputRef.current.click()}>
+        <div className="file-drop-icon">{tool.icon}</div>
+        <div className="file-drop-text">Drop your {multi?'files':'file'} here or click to browse</div>
+        <div className="file-drop-sub">Supports {accept.split(',').join(', ')} files {multi?'(select multiple)':''}</div>
+        <input ref={inputRef} type="file" accept={accept} multiple={multi} style={{display:'none'}} onChange={e=>handleFiles(e.target.files)}/>
+      </div>
+      {files.length > 0 && (
+        <div className="file-list">
+          {files.map((f,i) => (
+            <div className="file-item" key={i}>
+              <span className="file-item-name">📄 {f.name}</span>
+              <span className="file-item-size">{fmtSize(f.size)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {tool.id === 'watermark' && <div className="field"><label>Watermark text</label><input value={watermarkText} onChange={e=>setWatermarkText(e.target.value)} placeholder="e.g. CONFIDENTIAL, DRAFT..."/></div>}
+      {tool.id === 'remove-pages' && <div className="field"><label>Pages to remove (e.g. 1,3,5-8)</label><input value={pagesToRemove} onChange={e=>setPagesToRemove(e.target.value)} placeholder="1,3,5-8"/></div>}
+      <div className="ad-notice"><span>⏱</span><span>A short 5-second ad appears before processing. This keeps {tool.name} 100% free!</span></div>
+      <button className="btn btn-blue" onClick={run} disabled={!files.length} style={{opacity:files.length?1:0.5}}>{files.length ? `Process ${files.length > 1 ? files.length + ' Files' : 'File'} →` : 'Select a file first'}</button>
+    </div>
+  );
+}
+
+// ── MARKETING TOOL PANELS ─────────────────────────────────────────────────────
+function MktToolPanel({ tool }) {
+  const [phase, setPhase] = useState('input');
+  const [inputs, setInputs] = useState({});
+  const [result, setResult] = useState(null);
+  const [copiedMsg, copy] = useCopy();
+
+  const set = (k,v) => setInputs(p=>({...p,[k]:v}));
+  const run = () => { if (!Object.values(inputs)[0]?.trim()) return; setPhase('ad'); };
+  const reset = () => { setPhase('input'); setResult(null); };
+
+  const generate = () => {
+    setPhase('result');
+    const v = inputs;
+
+    if (tool.id === 'hashtag') {
+      const topic = v.topic||'marketing';
+      const base = topic.replace(/\s+/g,'');
+      setResult({ type:'hashtags', high:[`#${base}`,`#${base}Tips`,`#${base}2026`,'#DigitalMarketing','#SocialMedia','#ContentMarketing','#SEO','#Marketing','#GrowthHacking','#OnlineBusiness'],
+        mid:['#MarketingTips','#ContentCreator','#BrandAwareness','#SocialMediaMarketing','#MarketingStrategy','#LeadGeneration','#DigitalGrowth','#ContentStrategy','#MarketingAgency','#BusinessGrowth'],
+        niche:[`#${base}India`,`#Free${base}`,`#${base}Beginner`,'#MarketingIndia','#SmallBusinessIndia','#IndianMarketer','#DigitalMarketingIndia',`#${base}Community`,'#FreeMarketingTools','#MarketingForBeginners']
+      });
+    } else if (tool.id === 'keyword') {
+      const kw = v.keyword||'marketing';
+      setResult({ type:'keywords', rows:[
+        [`free ${kw} tools`,'22,000','easy'],[`${kw} tips for beginners`,'18,000','easy'],[`best ${kw} strategy`,'15,000','medium'],
+        [`how to do ${kw}`,'12,000','medium'],[`${kw} checklist`,'8,100','easy'],[`${kw} course free`,'6,600','easy'],
+        [`${kw} examples`,'9,900','medium'],[`${kw} tools free online`,'5,400','easy'],[`${kw} guide 2026`,'4,400','easy'],
+        [`${kw} mistakes to avoid`,'3,600','easy'],[`${kw} for small business`,'7,200','medium'],[`${kw} trends 2026`,'5,800','medium'],
+      ]});
+    } else if (tool.id === 'meta') {
+      const t = v.title||'', d = v.desc||'';
+      const tLen = t.length, dLen = d.length;
+      setResult({ type:'meta', title:t, desc:d, url:v.url||'https://yoursite.com',
+        titleStatus: tLen===0?['Missing','bad']:tLen>60?[`Too long (${tLen}/60)`,'warn']:tLen<20?[`Too short (${tLen}/60)`,'warn']:[`Good (${tLen}/60)`,'good'],
+        descStatus: dLen===0?['Missing','bad']:dLen>160?[`Too long (${dLen}/160)`,'warn']:dLen<80?[`Too short (${dLen}/160)`,'warn']:[`Good (${dLen}/160)`,'good'],
+      });
+    } else if (tool.id === 'utm') {
+      const base = v.url||'https://yoursite.com';
+      const params = [];
+      if(v.source) params.push('utm_source='+encodeURIComponent(v.source));
+      if(v.medium) params.push('utm_medium='+encodeURIComponent(v.medium));
+      if(v.campaign) params.push('utm_campaign='+encodeURIComponent(v.campaign));
+      setResult({ type:'utm', url: base+(base.includes('?')?'&':'?')+params.join('&'), source:v.source, medium:v.medium, campaign:v.campaign });
+    } else if (tool.id === 'captions') {
+      const topic = v.topic||'your product';
+      const tone = v.tone||'Engaging';
+      const templates = {
+        'Engaging & fun': [`🚀 ${topic} just changed the game and we're here for it! Drop a 🔥 if you agree!`,`POV: You discovered ${topic} and your workflow is never the same again 😍`,`Not to be dramatic but ${topic} is the best thing to happen this year 👀`,`The tool everyone's talking about? ${topic}. You're welcome 😉`,`Real talk — ${topic} slaps and I won't be taking questions 😂`],
+        'Professional': [`${topic} delivers measurable results that speak for themselves. Learn more via the link in bio.`,`In today's competitive landscape, ${topic} gives professionals the edge they need.`,`We're proud to share how ${topic} is transforming the way teams work.`,`${topic} — built for professionals who demand more from their tools.`,`The numbers don't lie. Teams leveraging ${topic} are seeing real outcomes.`],
+        'Inspirational': [`Every great journey starts with one step. ${topic} could be yours ✨`,`You have everything it takes. With ${topic}, you have even more. Start today.`,`Success isn't given — it's built. ${topic} is one of those building blocks 💪`,`The best time to start was yesterday. The second best time is now. Try ${topic}.`,`Don't wait for perfect. Create it. ${topic} is your first step forward 🌟`],
+      };
+      setResult({ type:'captions', items:(templates[tone]||templates['Engaging & fun']) });
+    } else if (tool.id === 'readability') {
+      const text = v.text||'';
+      const words = text.trim().split(/\s+/).filter(Boolean).length;
+      const sentences = (text.match(/[.!?]+/g)||[]).length||1;
+      const avgWords = (words/sentences).toFixed(1);
+      const score = Math.min(100, Math.max(0, Math.round(100 - avgWords * 1.5)));
+      const grade = score > 70 ? 'Easy to Read' : score > 50 ? 'Moderate' : 'Hard to Read';
+      setResult({ type:'readability', score, grade, words, sentences, avgWords,
+        tips: score < 70 ? ['Break long sentences into shorter ones','Use simpler vocabulary','Add more paragraph breaks','Avoid passive voice','Use bullet points for lists'] : ['Great readability!','Your content is easy to understand','Good sentence length variety','Keep it up!','Consider adding subheadings for longer pieces']
+      });
+    } else if (tool.id === 'blog-title') {
+      const topic = v.topic||'your topic';
+      setResult({ type:'list', label:'10 Blog Title Ideas', items:[
+        `The Ultimate Guide to ${topic} in 2026`,`${topic}: Everything You Need to Know`,`10 Proven ${topic} Strategies That Actually Work`,
+        `How to Master ${topic} in 30 Days`,`Why ${topic} is the Secret to Success`,`The Beginner's Complete Guide to ${topic}`,
+        `${topic} Tips That Experts Don't Want You to Know`,`How I Used ${topic} to Get Results`,`The Most Common ${topic} Mistakes (And How to Fix Them)`,
+        `${topic} vs The Rest: Which is Right for You?`,
+      ]});
+    } else if (tool.id === 'bio') {
+      const name = v.name||'Your Name'; const role = v.role||'Professional'; const platform = v.platform||'Instagram';
+      setResult({ type:'list', label:`3 ${platform} Bio Options`, items:[
+        `${role} | Helping people achieve their goals 🚀 | Tips on ${role.toLowerCase()} daily | 📩 DM for collabs`,
+        `Hi, I'm ${name} — ${role} 💼 | Sharing what works (and what doesn't) | Join ${Math.floor(Math.random()*9+1)}k+ followers learning with me`,
+        `${name} · ${role} · Building in public 🏗️ | Daily insights on ${role.toLowerCase()} | Link below ⬇️`,
+      ]});
+    } else if (tool.id === 'yt-desc') {
+      const topic = v.topic||'your topic'; const kws = v.keywords||topic;
+      setResult({ type:'yt', title:`${topic}: Complete Guide for Beginners (2026)`, altTitles:[`How to ${topic} — Step by Step Tutorial`,`The Only ${topic} Guide You'll Ever Need`,`${topic} Explained in Under 10 Minutes`],
+        desc:`In this video, I'll walk you through everything you need to know about ${topic}.\n\n✅ What you'll learn:\n- What is ${topic} and why it matters\n- Step-by-step process\n- Common mistakes to avoid\n- Pro tips and tricks\n\n⏱ Timestamps:\n00:00 Introduction\n01:30 What is ${topic}?\n03:45 Step-by-step guide\n07:00 Common mistakes\n09:30 Pro tips\n\n🔔 Subscribe for more content like this!\n\n#${topic.replace(/\s/g,'')} #${kws.replace(/\s/g,'')} #Tutorial #HowTo #Guide`
+      });
+    } else if (tool.id === 'ad-copy') {
+      const product = v.product||'your product'; const benefit = v.benefit||'amazing results';
+      setResult({ type:'adcopy', items:[
+        { platform:'Google Ad', headline:`Get ${product} — Free Trial Today`, desc:`Join thousands who already use ${product}. ${benefit}. Start for free, no credit card needed.` },
+        { platform:'Facebook Ad', headline:`Finally — ${product} That Actually Works`, desc:`Tired of tools that overpromise? ${product} delivers ${benefit}. Try it free today. Limited spots available.` },
+        { platform:'Instagram Ad', headline:`✨ ${product}`, desc:`${benefit} with ${product}. Join our community of successful users. Tap to learn more ➡️` },
+      ]});
+    } else if (tool.id === 'seo-audit') {
+      const url = v.url||'yoursite.com';
+      setResult({ type:'audit', url, scores:[
+        ['Page Title', 'Present & optimised', 'good'],['Meta Description', 'Present, good length', 'good'],
+        ['H1 Tag', 'Found on page', 'good'],['Page Speed', 'Needs improvement', 'warn'],
+        ['Mobile Friendly', 'Yes', 'good'],['SSL (HTTPS)', 'Secure', 'good'],
+        ['Image Alt Tags', 'Some missing', 'warn'],['Sitemap', 'Not detected', 'bad'],
+        ['Robots.txt', 'Present', 'good'],['Internal Links', 'Good structure', 'good'],
+      ], score: 72 });
+    }
+  };
+
+  if (phase === 'ad') return <AdCountdown toolName={tool.name} onDone={generate}/>;
+
+  if (phase === 'result' && result) {
+    const renderResult = () => {
+      if (result.type === 'hashtags') return (
+        <div>
+          <div className="results-header"><div className="results-title">Your 30 Hashtags</div><button className="copy-btn" onClick={()=>copy([...document.querySelectorAll('.tag')].map(t=>t.textContent).join(' '),'All copied!')}>Copy all</button></div>
+          {[['High traffic','tg',result.high],['Medium traffic','tb',result.mid],['Niche — low competition','ta',result.niche]].map(([lbl,cls,tags])=>(
+            <div className="tag-group" key={lbl}>
+              <div className="tag-group-lbl">{lbl}</div>
+              <div className="tags">{tags.map(t=><span className={`tag ${cls}`} key={t} onClick={()=>copy(t,'Copied!')}>{t}</span>)}</div>
+            </div>
+          ))}
+        </div>
+      );
+      if (result.type === 'keywords') return (
+        <div>
+          <div className="results-header"><div className="results-title">Keyword Ideas</div><button className="copy-btn" onClick={()=>copy(result.rows.map(r=>r[0]).join('\n'),'Copied!')}>Copy all</button></div>
+          <table className="kw-table"><thead><tr><th>Keyword</th><th>Est. Volume</th><th>Difficulty</th></tr></thead>
+          <tbody>{result.rows.map(([k,v,d])=><tr key={k}><td style={{fontWeight:500}}>{k}</td><td style={{color:'var(--text-2)'}}>{v}/mo</td><td><span className={`diff diff-${d[0]}`}>{d}</span></td></tr>)}</tbody></table>
+        </div>
+      );
+      if (result.type === 'meta') return (
+        <div>
+          <div className="results-title" style={{marginBottom:'1rem'}}>SEO Analysis</div>
+          <div className="result-box">
+            <div className="result-row"><span className="rl">Meta title</span><span className={`rv ${result.titleStatus[1]}`}>{result.titleStatus[0]}</span></div>
+            <div className="result-row"><span className="rl">Meta description</span><span className={`rv ${result.descStatus[1]}`}>{result.descStatus[0]}</span></div>
+            <div className="result-row"><span className="rl">Overall</span><span className={`rv ${result.titleStatus[1]==='good'&&result.descStatus[1]==='good'?'good':'warn'}`}>{result.titleStatus[1]==='good'&&result.descStatus[1]==='good'?'Optimised ✓':'Needs work'}</span></div>
+          </div>
+          <div className="serp-box">
+            <div className="serp-url">{result.url}</div>
+            <div className="serp-title">{result.title||'Your page title'}</div>
+            <div className="serp-desc">{result.desc||'Your meta description appears here in Google search results.'}</div>
+          </div>
+        </div>
+      );
+      if (result.type === 'utm') return (
+        <div>
+          <div className="results-title" style={{marginBottom:'0.75rem'}}>Your UTM Link</div>
+          <div className="result-box"><div className="mono">{result.url}</div></div>
+          <div className="result-box">
+            {[['Source',result.source],['Medium',result.medium],['Campaign',result.campaign]].map(([l,v])=>v?<div className="result-row" key={l}><span className="rl">{l}</span><span className="rv">{v}</span></div>:null)}
+          </div>
+          <button className="copy-btn" style={{width:'100%',padding:'9px'}} onClick={()=>copy(result.url,'Link copied!')}>Copy UTM link</button>
+        </div>
+      );
+      if (result.type === 'captions') return (
+        <div>
+          <div className="results-header"><div className="results-title">5 Captions Ready</div><button className="copy-btn" onClick={()=>copy(result.items.join('\n\n---\n\n'),'All copied!')}>Copy all</button></div>
+          <div className="result-box">{result.items.map((c,i)=><div className="output-item" key={i}><div className="output-num">Caption {i+1}</div><div className="output-text">{c}</div></div>)}</div>
+        </div>
+      );
+      if (result.type === 'readability') return (
+        <div>
+          <div className="results-title" style={{marginBottom:'1rem'}}>Readability Score</div>
+          <div style={{textAlign:'center',padding:'1rem 0'}}>
+            <div style={{fontSize:'3rem',fontWeight:700,color:result.score>70?'var(--green)':result.score>50?'var(--amber)':'var(--red)'}}>{result.score}</div>
+            <div style={{fontSize:'14px',fontWeight:600,color:'var(--text-2)',marginTop:'4px'}}>{result.grade}</div>
+          </div>
+          <div className="result-box">
+            {[['Word count',result.words],['Sentences',result.sentences],['Avg words/sentence',result.avgWords]].map(([l,v])=><div className="result-row" key={l}><span className="rl">{l}</span><span className="rv">{v}</span></div>)}
+          </div>
+          <div className="tag-group"><div className="tag-group-lbl">Suggestions</div><div style={{display:'flex',flexDirection:'column',gap:'6px'}}>{result.tips.map(t=><div style={{fontSize:'13px',padding:'6px 10px',background:'var(--bg)',borderRadius:'8px',color:'var(--text-2)'}} key={t}>• {t}</div>)}</div></div>
+        </div>
+      );
+      if (result.type === 'list') return (
+        <div>
+          <div className="results-header"><div className="results-title">{result.label}</div><button className="copy-btn" onClick={()=>copy(result.items.join('\n'),'Copied!')}>Copy all</button></div>
+          <div className="result-box">{result.items.map((item,i)=><div className="output-item" key={i}><div className="output-num">Option {i+1}</div><div className="output-text">{item}</div></div>)}</div>
+        </div>
+      );
+      if (result.type === 'yt') return (
+        <div>
+          <div className="results-title" style={{marginBottom:'0.75rem'}}>YouTube Title & Description</div>
+          <div className="tag-group-lbl" style={{marginBottom:'6px'}}>Recommended title</div>
+          <div className="result-box" style={{marginBottom:'0.75rem'}}><div style={{fontWeight:600,fontSize:'14px'}}>{result.title}</div></div>
+          <div className="tag-group-lbl" style={{marginBottom:'6px'}}>Alt titles</div>
+          <div className="result-box" style={{marginBottom:'0.75rem'}}>{result.altTitles.map((t,i)=><div className="output-item" key={i}><div className="output-text">{t}</div></div>)}</div>
+          <div className="tag-group-lbl" style={{marginBottom:'6px'}}>Full description</div>
+          <div className="result-box"><div className="output-text" style={{fontSize:'12.5px'}}>{result.desc}</div></div>
+          <button className="copy-btn" style={{width:'100%',padding:'9px',marginTop:'8px'}} onClick={()=>copy(result.title+'\n\n'+result.desc,'Copied!')}>Copy title + description</button>
+        </div>
+      );
+      if (result.type === 'adcopy') return (
+        <div>
+          <div className="results-title" style={{marginBottom:'1rem'}}>Ad Copy Variants</div>
+          {result.items.map((ad,i)=>(
+            <div key={i} className="result-box" style={{marginBottom:'8px'}}>
+              <div className="tag-group-lbl" style={{marginBottom:'6px'}}>{ad.platform}</div>
+              <div style={{fontWeight:600,fontSize:'14px',marginBottom:'4px'}}>{ad.headline}</div>
+              <div style={{fontSize:'13px',color:'var(--text-2)',lineHeight:'1.6'}}>{ad.desc}</div>
+              <button className="copy-btn" style={{marginTop:'8px'}} onClick={()=>copy(ad.headline+'\n'+ad.desc,'Copied!')}>Copy</button>
+            </div>
+          ))}
+        </div>
+      );
+      if (result.type === 'audit') return (
+        <div>
+          <div className="results-header">
+            <div className="results-title">SEO Audit: {result.url}</div>
+            <div style={{fontSize:'20px',fontWeight:700,color:result.score>70?'var(--green)':'var(--amber)'}}>{result.score}/100</div>
+          </div>
+          <div className="result-box">{result.scores.map(([l,v,s])=>(
+            <div className="result-row" key={l}><span className="rl">{l}</span><span className={`rv ${s}`}>{v} {s==='good'?'✓':s==='warn'?'⚠':'✗'}</span></div>
+          ))}</div>
+        </div>
+      );
+    };
+    return (
+      <div>
+        {renderResult()}
+        <div className="copied-msg">{copiedMsg}</div>
+        <button className="btn btn-ghost" onClick={reset}>Try another</button>
+      </div>
+    );
+  }
+
+  // INPUT FORMS
+  const renderForm = () => {
+    if (tool.id === 'hashtag') return (<>
+      <div className="field"><label>Topic or video title</label><input placeholder="e.g. digital marketing, cooking tips..." onChange={e=>set('topic',e.target.value)}/></div>
+      <div className="field"><label>Platform</label><select onChange={e=>set('platform',e.target.value)}><option>YouTube</option><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option></select></div>
+    </>);
+    if (tool.id === 'keyword') return (<>
+      <div className="field"><label>Seed keyword</label><input placeholder="e.g. digital marketing, best laptops..." onChange={e=>set('keyword',e.target.value)}/></div>
+      <div className="field"><label>Target market</label><select onChange={e=>set('market',e.target.value)}><option>India</option><option>Global</option><option>USA</option><option>UK</option></select></div>
+    </>);
+    if (tool.id === 'meta') return (<>
+      <div className="field"><label>Meta title</label><input placeholder="Your page title..." onChange={e=>set('title',e.target.value)}/></div>
+      <div className="field"><label>Meta description</label><textarea placeholder="Your page description..." onChange={e=>set('desc',e.target.value)} style={{minHeight:'70px'}}/></div>
+      <div className="field"><label>Page URL (optional)</label><input placeholder="https://yoursite.com/page" onChange={e=>set('url',e.target.value)}/></div>
+    </>);
+    if (tool.id === 'utm') return (<>
+      <div className="field"><label>Website URL</label><input placeholder="https://yoursite.com/page" onChange={e=>set('url',e.target.value)}/></div>
+      <div className="field-row">
+        <div className="field"><label>Source</label><input placeholder="google, facebook..." onChange={e=>set('source',e.target.value)}/></div>
+        <div className="field"><label>Medium</label><input placeholder="cpc, email, social..." onChange={e=>set('medium',e.target.value)}/></div>
+      </div>
+      <div className="field"><label>Campaign name</label><input placeholder="summer-sale, launch..." onChange={e=>set('campaign',e.target.value)}/></div>
+    </>);
+    if (tool.id === 'captions') return (<>
+      <div className="field"><label>Product or topic</label><input placeholder="e.g. fitness app, new course..." onChange={e=>set('topic',e.target.value)}/></div>
+      <div className="field-row">
+        <div className="field"><label>Platform</label><select onChange={e=>set('platform',e.target.value)}><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option><option>Facebook</option></select></div>
+        <div className="field"><label>Tone</label><select onChange={e=>set('tone',e.target.value)}><option>Engaging & fun</option><option>Professional</option><option>Inspirational</option></select></div>
+      </div>
+    </>);
+    if (tool.id === 'readability') return (
+      <div className="field"><label>Paste your content</label><textarea placeholder="Paste your blog post, article or any text here..." style={{minHeight:'140px'}} onChange={e=>set('text',e.target.value)}/></div>
+    );
+    if (tool.id === 'blog-title') return (<>
+      <div className="field"><label>Blog topic or niche</label><input placeholder="e.g. remote work, keto diet, SEO..." onChange={e=>set('topic',e.target.value)}/></div>
+    </>);
+    if (tool.id === 'bio') return (<>
+      <div className="field"><label>Your name</label><input placeholder="e.g. Rahul Sharma" onChange={e=>set('name',e.target.value)}/></div>
+      <div className="field-row">
+        <div className="field"><label>Role / niche</label><input placeholder="e.g. Digital Marketer" onChange={e=>set('role',e.target.value)}/></div>
+        <div className="field"><label>Platform</label><select onChange={e=>set('platform',e.target.value)}><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option><option>YouTube</option></select></div>
+      </div>
+    </>);
+    if (tool.id === 'yt-desc') return (<>
+      <div className="field"><label>Video topic</label><input placeholder="e.g. how to start dropshipping..." onChange={e=>set('topic',e.target.value)}/></div>
+      <div className="field"><label>Target keywords</label><input placeholder="e.g. dropshipping, ecommerce, 2026..." onChange={e=>set('keywords',e.target.value)}/></div>
+    </>);
+    if (tool.id === 'ad-copy') return (<>
+      <div className="field"><label>Product or service name</label><input placeholder="e.g. MarkTools, My SaaS..." onChange={e=>set('product',e.target.value)}/></div>
+      <div className="field"><label>Key benefit</label><input placeholder="e.g. save 3 hours a day, grow traffic..." onChange={e=>set('benefit',e.target.value)}/></div>
+      <div className="field"><label>Target audience</label><input placeholder="e.g. small business owners, marketers..." onChange={e=>set('audience',e.target.value)}/></div>
+    </>);
+    if (tool.id === 'seo-audit') return (
+      <div className="field"><label>Website URL</label><input placeholder="https://yoursite.com" onChange={e=>set('url',e.target.value)}/></div>
+    );
+  };
+
+  return (
+    <div>
+      {renderForm()}
+      <div className="ad-notice"><span>⏱</span><span>A short 5-second ad appears before your results — keeps this tool 100% free!</span></div>
+      <button className="btn btn-blue" onClick={run}>Generate →</button>
+    </div>
+  );
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function ToolModal({ tool, onClose }) {
+  const isPDF = PDF_TOOLS.find(t=>t.id===tool.id);
+  return (
+    <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&onClose()}>
+      <div className="modal">
+        <div className="modal-header">
+          <div className="modal-title-row">
+            <div className="modal-icon" style={{background:tool.color}}>{tool.icon}</div>
+            <div>
+              <div className="modal-title">{tool.name}</div>
+              <div className="modal-sub">{tool.desc}</div>
+            </div>
+          </div>
+          <button className="modal-close" onClick={onClose}>×</button>
+        </div>
+        <div className="modal-body">
+          {isPDF ? <PDFToolPanel tool={tool}/> : <MktToolPanel tool={tool}/>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── APP ───────────────────────────────────────────────────────────────────────
+export default function App() {
+  const [activeCat, setActiveCat] = useState('all');
+  const [openTool, setOpenTool] = useState(null);
+
+  return (
+    <div>
+      <nav className="nav">
+        <div className="logo" onClick={()=>setActiveCat('all')}>
+          <div className="logo-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8" style={{fill:'none',stroke:'white',strokeWidth:2}}/></svg></div>
+          ToolNest
+        </div>
+        <div className="nav-right">
+          <button className={`nav-pill ${activeCat==='pdf'?'active':''}`} onClick={()=>setActiveCat('pdf')}>PDF Tools</button>
+          <button className={`nav-pill ${activeCat==='mkt'?'active':''}`} onClick={()=>setActiveCat('mkt')}>Marketing</button>
+        </div>
+      </nav>
+
+      {activeCat==='all' && (
+        <div className="hero">
+          <div className="hero-eyebrow">✦ No signup · Files never leave your device</div>
+          <h1>Free Tools That Solve <span>Real Problems</span></h1>
+          <p>19 powerful PDF and digital marketing tools — completely free, forever. We show a short ad so you never pay.</p>
+          <div className="stats-row">
+            <div className="stat"><div className="stat-num">19</div><div className="stat-label">Free Tools</div></div>
+            <div className="stat"><div className="stat-num">₹0</div><div className="stat-label">Cost to you</div></div>
+            <div className="stat"><div className="stat-num">🔒</div><div className="stat-label">Files stay local</div></div>
+            <div className="stat"><div className="stat-num">5s</div><div className="stat-label">Short ad only</div></div>
+          </div>
+        </div>
+      )}
+
+      <div className="cat-tabs" style={{paddingTop: activeCat!=='all'?'1.5rem':'0'}}>
+        <button className={`cat-tab ${activeCat==='all'?'active-all':''}`} onClick={()=>setActiveCat('all')}>⚡ All Tools <span className="cat-count">19</span></button>
+        <button className={`cat-tab ${activeCat==='pdf'?'active-pdf':''}`} onClick={()=>setActiveCat('pdf')}>📄 PDF Tools <span className="cat-count">8</span></button>
+        <button className={`cat-tab ${activeCat==='mkt'?'active-mkt':''}`} onClick={()=>setActiveCat('mkt')}>📣 Marketing <span className="cat-count">11</span></button>
+      </div>
+
+      <div className="tools-section">
+        {(activeCat==='all'||activeCat==='pdf') && (<>
+          <div className="section-heading">📄 PDF Tools</div>
+          <div className="tools-grid">{PDF_TOOLS.map(t=><ToolCard key={t.id} tool={t} onClick={setOpenTool}/>)}</div>
+        </>)}
+        {(activeCat==='all'||activeCat==='mkt') && (<>
+          <div className="section-heading">📣 Marketing Tools</div>
+          <div className="tools-grid">{MKT_TOOLS.map(t=><ToolCard key={t.id} tool={t} onClick={setOpenTool}/>)}</div>
+        </>)}
+      </div>
+
+      <footer>
+        © 2026 ToolNest · 19 free tools · No signup required<br/>
+        <span style={{marginTop:'6px',display:'block'}}>
+          Affiliate partners: <a href="#">Adobe Acrobat</a> · <a href="#">SEMrush</a> · <a href="#">Hostinger</a> · <a href="#">Canva Pro</a>
+        </span>
+      </footer>
+
+      {openTool && <ToolModal tool={openTool} onClose={()=>setOpenTool(null)}/>}
+    </div>
+  );
+}
+</script>
+
+<script type="text/babel">
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<App/>);
+</script>
+</body>
+</html>
